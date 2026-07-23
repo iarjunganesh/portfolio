@@ -24,6 +24,14 @@ function MailIcon({ className }: { className?: string }) {
   );
 }
 
+function DownloadIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z" />
+    </svg>
+  );
+}
+
 type Badge = { label: string; tone?: "accent" | "gold" | "green" | "muted"; href?: string };
 
 type Project = {
@@ -177,10 +185,10 @@ const techGroups: { label: string; items: string[] }[] = [
 ];
 
 const career = [
-  { period: "2025 – Present", company: "Swedbank", location: "Stockholm, Sweden", role: "Software Engineer", note: "Anti-financial crime · Secure banking systems · AML platforms" },
-  { period: "2021 – 2025", company: "Viaplay Group", location: "Stockholm, Sweden", role: "Senior Java Developer", note: "Media & metadata systems · Content Engineering · Streaming platforms" },
-  { period: "Mar–Sep 2021", company: "Expleo Group", location: "Gothenburg, Sweden", role: "Software Developer" },
-  { period: "2012 – 2021", company: "IBM", location: "India & Australia", role: "Senior Software Engineer · 8 yrs 6 mos", note: "Associate System Engineer → Staff App Dev Analyst → Senior Software Engineer" },
+  { period: "2025 – Present", company: "Swedbank", location: "Stockholm, Sweden", role: "Software Engineer", note: "Anti-financial crime · AML platforms · 95%+ test coverage across a unified multi-module architecture" },
+  { period: "2021 – 2025", company: "Viaplay Group", location: "Stockholm, Sweden", role: "Senior Java Developer", note: "Media & streaming platforms on AWS + Kubernetes · ~30% performance and ~40% delivery-speed gains" },
+  { period: "Mar–Sep 2021", company: "Expleo Technology Nordic", location: "Gothenburg, Sweden", role: "Software Developer", note: "Domain-driven microservices · ~50% faster onboarding via documentation & workflow diagrams" },
+  { period: "2012 – 2021", company: "IBM", location: "Sydney & Pune", role: "Senior Software Engineer · 8 yrs 6 mos", note: "Regulated banking APIs for Westpac · ~25% response-time gains · Jenkins/Bamboo delivery modernization" },
 ];
 
 const certifications = [
@@ -306,6 +314,15 @@ export default function Home() {
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <a
+            href="/Arjun-Ganesh-CV.pdf"
+            download
+            aria-label="Download résumé (PDF)"
+            className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition hover:opacity-90"
+          >
+            <DownloadIcon className="h-4 w-4" />
+            Résumé
+          </a>
+          <a
             href="https://linkedin.com/in/iarjunganesh"
             target="_blank"
             rel="noreferrer"
@@ -334,6 +351,13 @@ export default function Home() {
             Email
           </a>
         </div>
+
+        <p className="text-xs text-muted">
+          Also available as{" "}
+          <a href="/Arjun-Ganesh-CV.docx" download className="text-accent-2 hover:underline">
+            Word (.docx) ↓
+          </a>
+        </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
           <a
