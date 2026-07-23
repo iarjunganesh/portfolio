@@ -314,15 +314,6 @@ export default function Home() {
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
           <a
-            href="/Arjun-Ganesh-CV.pdf"
-            download
-            aria-label="Download résumé (PDF)"
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition hover:opacity-90"
-          >
-            <DownloadIcon className="h-4 w-4" />
-            Résumé
-          </a>
-          <a
             href="https://linkedin.com/in/iarjunganesh"
             target="_blank"
             rel="noreferrer"
@@ -352,12 +343,30 @@ export default function Home() {
           </a>
         </div>
 
-        <p className="text-xs text-muted">
-          Also available as{" "}
-          <a href="/Arjun-Ganesh-CV.docx" download className="text-accent-2 hover:underline">
-            Word (.docx) ↓
+        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface py-1.5 pl-4 pr-1.5">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold">
+            <DownloadIcon className="h-4 w-4 text-accent-2" />
+            Résumé
+          </span>
+          <span className="h-4 w-px bg-border" aria-hidden="true" />
+          <a
+            href="/Arjun-Ganesh-CV.pdf"
+            download
+            aria-label="Download résumé as PDF"
+            className="rounded-full px-2.5 py-1 text-sm font-medium text-accent-2 transition hover:bg-surface-2"
+          >
+            PDF
           </a>
-        </p>
+          <span className="text-muted" aria-hidden="true">|</span>
+          <a
+            href="/Arjun-Ganesh-CV.docx"
+            download
+            aria-label="Download résumé as Word document"
+            className="rounded-full px-2.5 py-1 text-sm font-medium text-accent-2 transition hover:bg-surface-2"
+          >
+            DOCX
+          </a>
+        </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
           <a
