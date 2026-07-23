@@ -16,11 +16,12 @@ export const metadata: Metadata = {
   title: "Arjun Ganesh — Senior Engineer, Agentic AI Systems",
   description:
     "13+ years in distributed systems. Building agentic AI on Azure AI Foundry, A2A, RAG, and MCP — ARGUS (Microsoft Agents League 2026 Hack for Good winner), DRIFT, Banker's Wrapped, and Continuum.",
-  metadataBase: new URL("https://iarjunganesh.vercel.app"),
+  metadataBase: new URL("https://arjunganesh.dev"),
   openGraph: {
     title: "Arjun Ganesh — Senior Engineer, Agentic AI Systems",
     description:
       "13+ years in distributed systems. Building agentic AI on Azure AI Foundry, A2A, RAG, and MCP.",
+    url: "https://arjunganesh.dev",
     type: "website",
   },
 };
