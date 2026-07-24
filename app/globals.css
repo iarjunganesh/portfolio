@@ -51,6 +51,16 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background: radial-gradient(ellipse 80% 50% at 50% -10%, var(--glow-1), transparent),
     var(--background);
@@ -63,47 +73,64 @@ body {
   color: var(--select-fg);
 }
 
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--muted);
-  font-size: 0.75rem;
-  line-height: 1;
-  padding: 0.4rem 0.65rem;
-  border-radius: 999px;
-  white-space: nowrap;
-}
+@layer components {
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--muted);
+    font-size: 0.75rem;
+    line-height: 1;
+    padding: 0.4rem 0.65rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
 
-.card {
-  background: linear-gradient(180deg, var(--surface), var(--surface-2));
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-}
+  .card {
+    background: linear-gradient(180deg, var(--surface), var(--surface-2));
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+  }
 
-.glow-border {
-  position: relative;
-}
+  .glow-border {
+    position: relative;
+  }
 
-.glow-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, var(--glow-1), transparent, var(--glow-2));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
+  .glow-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--glow-1), transparent, var(--glow-2));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 
-.section-label {
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  color: var(--accent-2);
-  font-weight: 600;
+  .section-label {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--accent-2);
+    font-weight: 600;
+  }
+
+  /* Popover menus (Résumé / Email) — placed in the top layer; coordinates
+     are set by the ContactMenus client script, so start hidden to avoid a
+     flash at the default centered position. */
+  .menu-popover {
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: visible;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
 }

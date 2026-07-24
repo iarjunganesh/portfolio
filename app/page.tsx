@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ContactMenus from "./contact-menus";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -24,10 +25,18 @@ function MailIcon({ className }: { className?: string }) {
   );
 }
 
-function DownloadIcon({ className }: { className?: string }) {
+function DiscordIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
-      <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z" />
+      <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" />
+    </svg>
+  );
+}
+
+function DocumentIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
     </svg>
   );
 }
@@ -294,81 +303,138 @@ function TechChip({ label }: { label: string }) {
 
 export default function Home() {
   return (
-    <div className="mx-auto w-full max-w-5xl flex-1 px-6 py-16 sm:py-24">
-      {/* Hero */}
-      <section className="flex flex-col items-center text-center gap-6">
-        <p className="section-label">Senior Engineer · Agentic AI · Anti-Financial-Crime</p>
-        <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
-          <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
-            Arjun Ganesh
-          </span>
-        </h1>
-        <p className="max-w-2xl text-balance text-lg text-muted">
-          Senior engineer, 13+ years in distributed systems. I build{" "}
-          <span className="text-foreground">anti-financial-crime systems at a Nordic bank</span> by day, and{" "}
-          <span className="text-foreground">solo-ship agentic-AI products — and win hackathons</span> — by night.
-        </p>
-        <p className="max-w-2xl text-balance text-base text-muted">
-          I care about AI that explains its reasoning, leaves an audit trail, and actually works in production.
-        </p>
+    <div className="mx-auto w-full max-w-[1800px] flex-1 px-6 py-16 lg:flex lg:gap-16 lg:px-12 lg:py-0 2xl:gap-20 2xl:px-20">
+      <ContactMenus />
+      {/* Sidebar */}
+      <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[36%] lg:shrink-0 lg:flex-col lg:justify-between lg:py-20 xl:w-[32%] 2xl:w-[26%]">
+        <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+          <div>
+            <p className="section-label">Senior Engineer · Agentic AI · Anti-Financial-Crime</p>
+            <h1 className="mt-3 text-4xl font-bold tracking-tight lg:text-5xl">
+              <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
+                Arjun Ganesh
+              </span>
+            </h1>
+          </div>
+          <p className="max-w-md text-balance text-base text-muted">
+            Senior engineer, 13+ years in distributed systems. I build{" "}
+            <span className="text-foreground">anti-financial-crime systems at a Nordic bank</span> by day, and{" "}
+            <span className="text-foreground">solo-ship agentic-AI products — and win hackathons</span> — by night.
+          </p>
+          <p className="max-w-md text-balance text-sm text-muted">
+            I care about AI that explains its reasoning, leaves an audit trail, and actually works in production.
+          </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <a
-            href="https://linkedin.com/in/iarjunganesh"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn"
-            className="inline-flex items-center gap-2 rounded-full bg-[#0077B5] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"
-          >
-            <LinkedInIcon className="h-4 w-4" />
-            LinkedIn
-          </a>
-          <a
-            href="https://github.com/iarjunganesh"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition hover:border-accent/50 hover:text-accent-2"
-          >
-            <GitHubIcon className="h-4 w-4" />
-            GitHub
-          </a>
-          <a
-            href="mailto:iarjunganesh@gmail.com"
-            aria-label="Email"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition hover:border-accent/50 hover:text-accent-2"
-          >
-            <MailIcon className="h-4 w-4" />
-            Email
-          </a>
+          <nav aria-label="Section navigation" className="hidden pt-2 lg:block">
+            <ul className="flex flex-col gap-1">
+              {[
+                { href: "#about", label: "About" },
+                { href: "#work", label: "Selected Work" },
+                { href: "#focus", label: "Focus Areas" },
+                { href: "#stack", label: "Tech Stack" },
+                { href: "#career", label: "Career Journey" },
+                { href: "#certs", label: "Certifications" },
+              ].map((n) => (
+                <li key={n.href}>
+                  <a href={n.href} className="group inline-flex items-center gap-3 py-1.5">
+                    <span className="h-px w-8 bg-border transition-all duration-300 group-hover:w-16 group-hover:bg-accent-2" />
+                    <span className="text-xs font-semibold uppercase tracking-widest text-muted transition group-hover:text-foreground">
+                      {n.label}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface py-1.5 pl-4 pr-1.5">
-          <span className="inline-flex items-center gap-2 text-sm font-semibold">
-            <DownloadIcon className="h-4 w-4 text-accent-2" />
-            Résumé
-          </span>
-          <span className="h-4 w-px bg-border" aria-hidden="true" />
-          <a
-            href="/Arjun-Ganesh-CV.pdf"
-            download
-            aria-label="Download résumé as PDF"
-            className="rounded-full px-2.5 py-1 text-sm font-medium text-accent-2 transition hover:bg-surface-2"
-          >
-            PDF
-          </a>
-          <span className="text-muted" aria-hidden="true">|</span>
-          <a
-            href="/Arjun-Ganesh-CV.docx"
-            download
-            aria-label="Download résumé as Word document"
-            className="rounded-full px-2.5 py-1 text-sm font-medium text-accent-2 transition hover:bg-surface-2"
-          >
-            DOCX
-          </a>
+        <div className="mt-10 flex flex-col items-center gap-3 lg:mt-0 lg:items-start lg:pt-6">
+          <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <a
+              href="https://linkedin.com/in/iarjunganesh"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              title="LinkedIn"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#0077B5] text-white transition hover:brightness-110"
+            >
+              <LinkedInIcon className="h-5 w-5" />
+            </a>
+            <a
+              href="https://github.com/iarjunganesh"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+              title="GitHub"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface transition hover:border-accent/50 hover:text-accent-2"
+            >
+              <GitHubIcon className="h-5 w-5" />
+            </a>
+            <a
+              href="https://discord.com/users/1468742414851248301"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Discord"
+              title="Discord"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface transition hover:border-accent/50 hover:text-accent-2"
+            >
+              <DiscordIcon className="h-5 w-5" />
+            </a>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <button
+              type="button"
+              popoverTarget="menu-resume"
+              aria-label="Résumé — choose PDF or DOCX"
+              title="Résumé"
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-surface transition hover:border-accent/50 hover:text-accent-2"
+            >
+              <DocumentIcon className="h-5 w-5" />
+            </button>
+            <div id="menu-resume" popover="auto" className="menu-popover">
+              <div className="flex items-center gap-1 whitespace-nowrap rounded-full border border-border bg-surface px-1.5 py-1 shadow-lg">
+                <span className="px-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted">CV</span>
+                <a href="/Arjun-Ganesh-CV.pdf" download className="rounded-full px-2.5 py-1 text-xs font-medium text-accent-2 transition hover:bg-surface-2">
+                  PDF
+                </a>
+                <span className="text-muted" aria-hidden="true">|</span>
+                <a href="/Arjun-Ganesh-CV.docx" download className="rounded-full px-2.5 py-1 text-xs font-medium text-accent-2 transition hover:bg-surface-2">
+                  DOCX
+                </a>
+              </div>
+            </div>
+            <button
+              type="button"
+              popoverTarget="menu-email"
+              aria-label="Email — choose Gmail, Outlook, or iCloud"
+              title="Email"
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-border bg-surface transition hover:border-accent/50 hover:text-accent-2"
+            >
+              <MailIcon className="h-5 w-5" />
+            </button>
+            <div id="menu-email" popover="auto" className="menu-popover">
+              <div className="flex items-center gap-1 whitespace-nowrap rounded-full border border-border bg-surface px-1.5 py-1 shadow-lg">
+                <a href="mailto:iarjunganesh@gmail.com" className="rounded-full px-2.5 py-1 text-xs font-medium text-accent-2 transition hover:bg-surface-2">
+                  Gmail
+                </a>
+                <span className="text-muted" aria-hidden="true">|</span>
+                <a href="mailto:iarjunganesh@outlook.com" className="rounded-full px-2.5 py-1 text-xs font-medium text-accent-2 transition hover:bg-surface-2">
+                  Outlook
+                </a>
+                <span className="text-muted" aria-hidden="true">|</span>
+                <a href="mailto:iarjunganesh@icloud.com" className="rounded-full px-2.5 py-1 text-xs font-medium text-accent-2 transition hover:bg-surface-2">
+                  iCloud
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+      </header>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+      {/* Content */}
+      <main className="mt-16 min-w-0 lg:mt-0 lg:flex-1 lg:py-20">
+        {/* Highlights */}
+        <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
           <a
             href="https://techcommunity.microsoft.com/blog/educatordeveloperblog/%F0%9F%8F%86-agents-league-celebrating-the-builders-who-made-agents-battle-for-glory/4538007"
             target="_blank"
@@ -395,10 +461,9 @@ export default function Home() {
             NVIDIA Certified · Agentic AI (NCP-AAI)
           </a>
         </div>
-      </section>
 
       {/* About */}
-      <section className="mt-24 grid gap-6 sm:grid-cols-3">
+      <section id="about" className="mt-16 scroll-mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
         {[
           { icon: "🏦", text: "Software Engineer @ Swedbank — anti-financial crime & AML" },
           { icon: "🤖", text: "Building agentic AI on Azure AI Foundry, A2A, and MCP" },
@@ -412,11 +477,11 @@ export default function Home() {
       </section>
 
       {/* Selected Work */}
-      <section className="mt-24">
+      <section id="work" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Selected Work</p>
         <h2 className="mt-2 text-2xl sm:text-3xl font-bold">What I&rsquo;ve built</h2>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {projects.map((p) => (
             <div key={p.key} className="card glow-border relative flex flex-col gap-4 rounded-2xl p-6">
               <div>
@@ -429,17 +494,16 @@ export default function Home() {
                 <p className="mt-1 text-sm text-muted">{p.tagline}</p>
               </div>
 
-              {p.context &&
-                (p.contextHref ? (
-                  <a href={p.contextHref} target="_blank" rel="noreferrer" className="chip w-fit transition hover:border-accent/50 hover:text-accent-2">
-                    {p.context}
-                    <span aria-hidden="true" className="opacity-70">↗</span>
-                  </a>
-                ) : (
-                  <span className="chip w-fit">{p.context}</span>
-                ))}
-
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                {p.context &&
+                  (p.contextHref ? (
+                    <a href={p.contextHref} target="_blank" rel="noreferrer" className="chip whitespace-normal text-left transition hover:border-accent/50 hover:text-accent-2">
+                      {p.context}
+                      <span aria-hidden="true" className="opacity-70">↗</span>
+                    </a>
+                  ) : (
+                    <span className="chip whitespace-normal text-left">{p.context}</span>
+                  ))}
                 {p.statusBadges.map((b) => (
                   <StatusBadge key={b.label} badge={b} />
                 ))}
@@ -447,10 +511,13 @@ export default function Home() {
 
               <p className="text-sm leading-relaxed text-muted">{p.description}</p>
 
-              <div className="flex flex-wrap gap-x-2 gap-y-1">
-                {p.stack.flat().map((s) => (
-                  <TechChip key={s} label={s} />
-                ))}
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted">Stack</p>
+                <div className="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+                  {p.stack.flat().map((s) => (
+                    <TechChip key={s} label={s} />
+                  ))}
+                </div>
               </div>
 
               {p.credentials && (
@@ -501,11 +568,11 @@ export default function Home() {
       </section>
 
       {/* What I work on */}
-      <section className="mt-24">
+      <section id="focus" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Focus Areas</p>
         <h2 className="mt-2 text-2xl sm:text-3xl font-bold">What I work on</h2>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {[
             {
               title: "🧩 Agentic AI & Enterprise Intelligence",
@@ -533,7 +600,7 @@ export default function Home() {
       </section>
 
       {/* Tech Stack */}
-      <section className="mt-24">
+      <section id="stack" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Tech Stack</p>
         <h2 className="mt-2 text-2xl sm:text-3xl font-bold">Tools I reach for</h2>
 
@@ -552,7 +619,7 @@ export default function Home() {
       </section>
 
       {/* Career Journey */}
-      <section className="mt-24">
+      <section id="career" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Career Journey</p>
         <h2 className="mt-2 text-2xl sm:text-3xl font-bold">Where I&rsquo;ve worked</h2>
 
@@ -577,11 +644,11 @@ export default function Home() {
       </section>
 
       {/* Experiments & learning */}
-      <section className="mt-24">
+      <section className="mt-16 lg:mt-24">
         <p className="section-label">Also on GitHub</p>
         <h2 className="mt-2 text-2xl sm:text-3xl font-bold">Experiments &amp; learning</h2>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 2xl:grid-cols-4">
           {experiments.map((e) => (
             <a
               key={e.name}
@@ -598,11 +665,11 @@ export default function Home() {
       </section>
 
       {/* Recognition */}
-      <section className="mt-24">
+      <section id="certs" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Certifications</p>
         <h2 className="mt-2 text-2xl sm:text-3xl font-bold">Credentials &amp; training</h2>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 2xl:grid-cols-3">
           {certifications.map((c) => (
             <a
               key={c.name}
@@ -624,43 +691,13 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section className="mt-24 flex flex-col items-center gap-6 text-center">
+      <section id="contact" className="mt-16 flex flex-col items-center gap-6 text-center lg:mt-24">
         <p className="section-label">Let&rsquo;s Connect</p>
         <p className="max-w-2xl text-balance text-lg">
           Building trustworthy AI systems that explain their reasoning, leave an audit trail, and
           actually work in production. If that&rsquo;s the kind of problem you&rsquo;re working on
           — I&rsquo;d love to talk.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="https://linkedin.com/in/iarjunganesh"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn"
-            className="inline-flex items-center gap-2 rounded-full bg-[#0077B5] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"
-          >
-            <LinkedInIcon className="h-4 w-4" />
-            iarjunganesh
-          </a>
-          <a
-            href="https://github.com/iarjunganesh"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition hover:border-accent/50 hover:text-accent-2"
-          >
-            <GitHubIcon className="h-4 w-4" />
-            iarjunganesh
-          </a>
-          <a
-            href="mailto:iarjunganesh@gmail.com"
-            aria-label="Email"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition hover:border-accent/50 hover:text-accent-2"
-          >
-            <MailIcon className="h-4 w-4" />
-            iarjunganesh@gmail.com
-          </a>
-        </div>
         <div className="flex flex-wrap justify-center gap-2 pt-2">
           {["Agentic AI", "AI Governance", "Azure AI Foundry", "Banking Technology", "Distributed Systems", "Generative Media"].map((t) => (
             <span key={t} className="chip">
@@ -670,11 +707,12 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="mt-24 border-t border-border pt-8 text-center text-xs text-muted">
+      <footer className="mt-16 border-t border-border pt-8 text-center text-xs text-muted lg:mt-24">
         <Link href="https://github.com/iarjunganesh" target="_blank" className="hover:text-accent-2">
           github.com/iarjunganesh
         </Link>
       </footer>
+      </main>
     </div>
   );
 }
