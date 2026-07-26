@@ -431,7 +431,7 @@ export default function Home() {
       <ContactMenus />
       <StickyNav />
       {/* Sidebar */}
-      <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[36%] lg:shrink-0 lg:flex-col lg:justify-between lg:py-20 xl:w-[32%] 2xl:w-[26%]">
+      <header className="no-scrollbar lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[36%] lg:shrink-0 lg:flex-col lg:overflow-y-auto lg:py-20 xl:w-[32%] 2xl:w-[26%]">
         <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
           <div className="hero-fade-up">
             <p className="section-label">Senior Engineer · Agentic AI · Anti-Financial-Crime</p>
@@ -441,44 +441,8 @@ export default function Home() {
               </ScrollTopLink>
             </h1>
           </div>
-          <p className="hero-fade-up max-w-md text-balance text-base text-muted" style={{ animationDelay: "80ms" }}>
-            I build <span className="text-foreground">audit-trailed, citation-grounded agentic AI</span> for regulated
-            industries — anti-financial-crime at a Nordic bank in Stockholm by day,{" "}
-            <span className="text-foreground">hackathon-winning agent systems</span> by night.
-          </p>
-          <p className="hero-fade-up max-w-md text-balance text-sm text-muted" style={{ animationDelay: "140ms" }}>
-            I care about AI that explains its reasoning, leaves an audit trail, and actually works in production.
-          </p>
-          <div className="hero-fade-up w-full" style={{ animationDelay: "200ms" }}>
-            <AgentTrace />
-          </div>
 
-          <nav aria-label="Section navigation" className="hidden pt-2 lg:block">
-            <ul className="flex flex-col gap-1">
-              {[
-                { href: "#about", label: "About" },
-                { href: "#work", label: "Selected Work" },
-                { href: "#research", label: "Research" },
-                { href: "#focus", label: "Focus Areas" },
-                { href: "#stack", label: "Tech Stack" },
-                { href: "#career", label: "Career Journey" },
-                { href: "#certs", label: "Certifications" },
-              ].map((n) => (
-                <li key={n.href}>
-                  <a href={n.href} className="group inline-flex items-center gap-3 py-1.5">
-                    <span className="h-px w-8 bg-border transition-all duration-300 group-hover:w-16 group-hover:bg-accent-2" />
-                    <span className="text-xs font-semibold uppercase tracking-widest text-muted transition group-hover:text-foreground">
-                      {n.label}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-
-        <div className="mt-10 flex flex-col items-center gap-3 lg:mt-0 lg:items-start lg:pt-6">
-          <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+          <div className="hero-fade-up flex flex-wrap items-center justify-center gap-3 lg:justify-start" style={{ animationDelay: "40ms" }}>
             <a
               href="https://linkedin.com/in/iarjunganesh"
               target="_blank"
@@ -509,8 +473,6 @@ export default function Home() {
             >
               <DiscordIcon className="h-5 w-5" />
             </a>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             <button
               type="button"
               popoverTarget="menu-resume"
@@ -557,7 +519,43 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          <p className="hero-fade-up max-w-md text-balance text-base text-muted" style={{ animationDelay: "80ms" }}>
+            I build <span className="text-foreground">audit-trailed, citation-grounded agentic AI</span> for regulated
+            industries — anti-financial-crime at a Nordic bank in Stockholm by day,{" "}
+            <span className="text-foreground">hackathon-winning agent systems</span> by night.
+          </p>
+          <p className="hero-fade-up max-w-md text-balance text-sm text-muted" style={{ animationDelay: "140ms" }}>
+            I care about AI that explains its reasoning, leaves an audit trail, and actually works in production.
+          </p>
+          <div className="hero-fade-up w-full" style={{ animationDelay: "200ms" }}>
+            <AgentTrace />
+          </div>
+
+          <nav aria-label="Section navigation" className="hidden pt-2 lg:block">
+            <ul className="flex flex-col gap-1">
+              {[
+                { href: "#about", label: "About" },
+                { href: "#work", label: "Selected Work" },
+                { href: "#research", label: "Research" },
+                { href: "#focus", label: "Focus Areas" },
+                { href: "#stack", label: "Tech Stack" },
+                { href: "#career", label: "Career Journey" },
+                { href: "#certs", label: "Certifications" },
+              ].map((n) => (
+                <li key={n.href}>
+                  <a href={n.href} className="group inline-flex items-center gap-3 py-1.5">
+                    <span className="h-px w-8 bg-border transition-all duration-300 group-hover:w-16 group-hover:bg-accent-2" />
+                    <span className="text-xs font-semibold uppercase tracking-widest text-muted transition group-hover:text-foreground">
+                      {n.label}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
+
       </header>
 
       {/* Content */}

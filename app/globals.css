@@ -247,4 +247,12 @@ body {
   @media (prefers-reduced-motion: reduce) {
     .hero-fade-up { animation: none; }
   }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

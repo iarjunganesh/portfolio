@@ -14,6 +14,9 @@ export default function ScrollTopLink({
       className={className}
       onClick={(e) => {
         e.preventDefault();
+        if (window.location.pathname !== "/" || window.location.search || window.location.hash) {
+          window.history.pushState(null, "", "/");
+        }
         const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
       }}
