@@ -1,5 +1,9 @@
-import Link from "next/link";
 import ContactMenus from "./contact-menus";
+import ScrollTopLink from "./scroll-top-link";
+import AgentTrace from "./agent-trace";
+import Reveal from "./reveal";
+import DeviceFrame from "./device-frame";
+import StickyNav from "./sticky-nav";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -49,6 +53,7 @@ type Project = {
   name: string;
   href: string;
   tagline: string;
+  angle: string;
   context?: string;
   contextHref?: string;
   statusBadges: Badge[];
@@ -68,6 +73,7 @@ const projects: Project[] = [
     name: "ARGUS",
     href: "https://github.com/iarjunganesh/argus",
     tagline: "Multi-agent compliance intelligence on Azure AI Foundry",
+    angle: "Manual KYC/AML review doesn't scale, and unaudited AI decisions don't survive a regulator's questions.",
     context: "Microsoft Agents League — AI Skills Fest 2026 · Reasoning Agents track",
     contextHref: "https://info.microsoft.com/Agents-League-Hackathon-Registration.html",
     statusBadges: [
@@ -106,6 +112,7 @@ const projects: Project[] = [
     name: "DRIFT",
     href: "https://github.com/iarjunganesh/drift",
     tagline: "Release intelligence for GPU & AI infrastructure",
+    angle: "GPU/AI-infra changelogs are noisy and scattered — teams miss the one release that breaks their pipeline.",
     context: "OpenAI Build Week · Devpost",
     contextHref: "https://openai.devpost.com/",
     statusBadges: [{ label: "Live in production", tone: "green" }],
@@ -124,19 +131,25 @@ const projects: Project[] = [
     ],
   },
   {
-    key: "q1729",
-    emoji: "🧮",
-    name: "q1729 — the quantum taxicab",
-    href: "https://github.com/iarjunganesh/q1729",
-    tagline: "Ramanujan's mathematics meets the NVIDIA stack",
-    context: "Independent research · math × GPU compute",
-    statusBadges: [{ label: "Active research", tone: "accent" }],
+    key: "bankers-wrapped",
+    emoji: "🎬",
+    name: "Banker's Wrapped",
+    href: "https://github.com/iarjunganesh/bankers-wrapped",
+    tagline: "AI-powered financial storytelling",
+    angle: "Nobody reads a transaction CSV for fun — but everyone will watch a 60-second recap of their own year.",
+    context: "Backblaze Generative Media · Devpost",
+    contextHref: "https://backblaze-generative-media.devpost.com/",
+    statusBadges: [{ label: "In development", tone: "gold" }],
     description:
-      "How fast can a GPU compute π — classically, and as a quantum computer? An end-to-end study from consumer RTX to datacenter H100 (CUDA C++ and CUDA-Q/cuQuantum), with an AI layer that writes up what the numbers actually show.",
+      "Spotify Wrapped, but for your bank account — an agentic pipeline that turns a transaction CSV into a personalized 60-second narrated recap video.",
+    liveLinks: [
+      { label: "Live app", href: "https://bankers-wrapped.arjunganesh.dev" },
+      { label: "API docs", href: "https://bankers-wrapped-api-production.up.railway.app/docs" },
+    ],
     stack: [
-      ["CUDA C++", "CUDA-Q", "cuQuantum"],
-      ["NVIDIA NIM", "Nemotron"],
-      ["Python"],
+      ["Backblaze B2", "Genblaze SDK", "GMI Cloud Seedream", "NVIDIA NIM", "OpenAI TTS-1", "FFmpeg"],
+      ["Next.js", "React 19", "TypeScript"],
+      ["Python", "FastAPI", "Plaid Sandbox", "Railway"],
     ],
   },
   {
@@ -145,6 +158,7 @@ const projects: Project[] = [
     name: "Continuum",
     href: "https://github.com/iarjunganesh/continuum",
     tagline: "Durable incident memory for cold-started agents",
+    angle: "An agent killed mid-incident normally loses all context — and starts the investigation over from zero.",
     context: "CockroachDB AI · Devpost",
     contextHref: "https://cockroachdb-ai.devpost.com/",
     statusBadges: [{ label: "In development", tone: "gold" }],
@@ -156,25 +170,24 @@ const projects: Project[] = [
       ["Python", "FastAPI", "Gradio", "pytest"],
     ],
   },
+];
+
+const research: Project[] = [
   {
-    key: "bankers-wrapped",
-    emoji: "🎬",
-    name: "Banker's Wrapped",
-    href: "https://github.com/iarjunganesh/bankers-wrapped",
-    tagline: "AI-powered financial storytelling",
-    context: "Backblaze Generative Media · Devpost",
-    contextHref: "https://backblaze-generative-media.devpost.com/",
-    statusBadges: [{ label: "In development", tone: "gold" }],
+    key: "q1729",
+    emoji: "🧮",
+    name: "q1729 — the quantum taxicab",
+    href: "https://github.com/iarjunganesh/q1729",
+    tagline: "Ramanujan's mathematics meets the NVIDIA stack",
+    angle: "How fast can a 100-year-old series actually run on today's silicon — classical and quantum?",
+    context: "Independent research · math × GPU compute",
+    statusBadges: [{ label: "Active research", tone: "accent" }],
     description:
-      "Spotify Wrapped, but for your bank account — an agentic pipeline that turns a transaction CSV into a personalized 60-second narrated recap video.",
-    liveLinks: [
-      { label: "Live app", href: "https://bankers-wrapped.vercel.app" },
-      { label: "API docs", href: "https://bankers-wrapped-api-production.up.railway.app/docs" },
-    ],
+      "How fast can a GPU compute π — classically, and as a quantum computer? An end-to-end study from consumer RTX to datacenter H100 (CUDA C++ and CUDA-Q/cuQuantum), with an AI layer that writes up what the numbers actually show.",
     stack: [
-      ["Backblaze B2", "Genblaze SDK", "GMI Cloud Seedream", "NVIDIA NIM", "OpenAI TTS-1", "FFmpeg"],
-      ["Next.js", "React 19", "TypeScript"],
-      ["Python", "FastAPI", "Plaid Sandbox", "Railway"],
+      ["CUDA C++", "CUDA-Q", "cuQuantum"],
+      ["NVIDIA NIM", "Nemotron"],
+      ["Python"],
     ],
   },
 ];
@@ -301,35 +314,151 @@ function TechChip({ label }: { label: string }) {
   );
 }
 
+function ProjectCard({ p, delay }: { p: Project; delay: number }) {
+  return (
+    <Reveal delay={delay} className="sm:[&:nth-child(odd)]:mt-0">
+      <div className={`card relative flex h-full flex-col gap-4 rounded-2xl p-6 ${p.key === "argus" ? "trace-border" : "glow-border"}`}>
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="text-2xl">{p.emoji}</span>
+            <a href={p.href} target="_blank" rel="noreferrer" className="font-display text-lg font-semibold hover:text-accent-2">
+              {p.name}
+            </a>
+          </div>
+          <p className="mt-1 text-sm text-muted">{p.tagline}</p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          {p.context &&
+            (p.contextHref ? (
+              <a href={p.contextHref} target="_blank" rel="noreferrer" className="chip whitespace-normal text-left transition hover:border-accent/50 hover:text-accent-2">
+                {p.context}
+                <span aria-hidden="true" className="opacity-70">↗</span>
+              </a>
+            ) : (
+              <span className="chip whitespace-normal text-left">{p.context}</span>
+            ))}
+          {p.statusBadges.map((b) => (
+            <StatusBadge key={b.label} badge={b} />
+          ))}
+        </div>
+
+        <div className="space-y-2.5 rounded-xl border border-border bg-surface-2/50 p-3.5 font-mono text-[12px] leading-relaxed">
+          <p>
+            <span className="text-accent">problem&gt;</span>{" "}
+            <span className="text-muted">{p.angle}</span>
+          </p>
+          <p>
+            <span className="text-accent-2">approach&gt;</span>{" "}
+            <span className="text-muted">{p.description}</span>
+          </p>
+        </div>
+
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted">Stack</p>
+          <div className="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+            {p.stack.flat().map((s) => (
+              <TechChip key={s} label={s} />
+            ))}
+          </div>
+        </div>
+
+        {p.key === "drift" && (
+          <DeviceFrame url="https://dr1ftless.vercel.app" label="DRIFT live app" height={280} />
+        )}
+        {p.key === "continuum" && (
+          <DeviceFrame
+            url="https://huggingface.co/spaces/iarjunganesh/continuum"
+            embedUrl="https://iarjunganesh-continuum.hf.space"
+            label="Continuum HuggingFace Space"
+            height={280}
+          />
+        )}
+        {p.key === "bankers-wrapped" && (
+          <DeviceFrame url="https://bankers-wrapped.arjunganesh.dev" label="Banker's Wrapped live app" height={280} />
+        )}
+
+        {p.credentials && (
+          <div className="rounded-xl border border-gold/25 bg-gold/[0.06] p-3">
+            <p className="text-[11px] font-medium text-muted">
+              Studied Foundry IQ before building ARGUS, then competed in the Agents League Reasoning Agents track — and won Hack for Good (1 of 3).
+            </p>
+            <div className="mt-2 flex flex-wrap gap-3">
+              {p.credentials.map((c) => (
+                <a
+                  key={c.href}
+                  href={c.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={c.label}
+                  className="flex items-center gap-2 rounded-lg border border-border bg-surface px-2 py-1.5 transition hover:border-accent/50"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={c.img} alt={c.label} width={32} height={32} className="rounded-full" />
+                  <span className="leading-tight">
+                    <span className="block text-[11px] font-semibold">{c.label}</span>
+                    <span className="block text-[10px] text-muted">{c.sub}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-auto flex flex-wrap gap-3 pt-2 text-sm">
+          <a href={p.href} target="_blank" rel="noreferrer" className="font-medium text-accent-2 hover:underline">
+            Repository ↗
+          </a>
+          {p.demoHref && (
+            <a href={p.demoHref} target="_blank" rel="noreferrer" className="font-medium text-accent-2 hover:underline">
+              Watch demo ↗
+            </a>
+          )}
+          {p.liveLinks?.map((l) => (
+            <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="font-medium text-accent-2 hover:underline">
+              {l.label} ↗
+            </a>
+          ))}
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
 export default function Home() {
   return (
     <div className="mx-auto w-full max-w-[1800px] flex-1 px-6 py-16 lg:flex lg:gap-16 lg:px-12 lg:py-0 2xl:gap-20 2xl:px-20">
       <ContactMenus />
+      <StickyNav />
       {/* Sidebar */}
       <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[36%] lg:shrink-0 lg:flex-col lg:justify-between lg:py-20 xl:w-[32%] 2xl:w-[26%]">
         <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
-          <div>
+          <div className="hero-fade-up">
             <p className="section-label">Senior Engineer · Agentic AI · Anti-Financial-Crime</p>
-            <h1 className="mt-3 text-4xl font-bold tracking-tight lg:text-5xl">
-              <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
+            <h1 className="font-display mt-3 text-4xl font-bold tracking-tight lg:text-5xl">
+              <ScrollTopLink className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
                 Arjun Ganesh
-              </span>
+              </ScrollTopLink>
             </h1>
           </div>
-          <p className="max-w-md text-balance text-base text-muted">
-            Senior engineer, 13+ years in distributed systems. I build{" "}
-            <span className="text-foreground">anti-financial-crime systems at a Nordic bank</span> by day, and{" "}
-            <span className="text-foreground">solo-ship agentic-AI products — and win hackathons</span> — by night.
+          <p className="hero-fade-up max-w-md text-balance text-base text-muted" style={{ animationDelay: "80ms" }}>
+            I build <span className="text-foreground">audit-trailed, citation-grounded agentic AI</span> for regulated
+            industries — anti-financial-crime at a Nordic bank in Stockholm by day,{" "}
+            <span className="text-foreground">hackathon-winning agent systems</span> by night.
           </p>
-          <p className="max-w-md text-balance text-sm text-muted">
+          <p className="hero-fade-up max-w-md text-balance text-sm text-muted" style={{ animationDelay: "140ms" }}>
             I care about AI that explains its reasoning, leaves an audit trail, and actually works in production.
           </p>
+          <div className="hero-fade-up w-full" style={{ animationDelay: "200ms" }}>
+            <AgentTrace />
+          </div>
 
           <nav aria-label="Section navigation" className="hidden pt-2 lg:block">
             <ul className="flex flex-col gap-1">
               {[
                 { href: "#about", label: "About" },
                 { href: "#work", label: "Selected Work" },
+                { href: "#research", label: "Research" },
                 { href: "#focus", label: "Focus Areas" },
                 { href: "#stack", label: "Tech Stack" },
                 { href: "#career", label: "Career Journey" },
@@ -468,101 +597,36 @@ export default function Home() {
           { icon: "🏦", text: "Software Engineer @ Swedbank — anti-financial crime & AML" },
           { icon: "🤖", text: "Building agentic AI on Azure AI Foundry, A2A, and MCP" },
           { icon: "🧮", text: "Researching GPU & quantum compute — q1729, the quantum taxicab" },
-        ].map((item) => (
-          <div key={item.text} className="card rounded-2xl p-5 text-sm text-muted">
-            <span className="mr-2 text-lg">{item.icon}</span>
-            {item.text}
-          </div>
+        ].map((item, i) => (
+          <Reveal key={item.text} delay={i * 60}>
+            <div className="card h-full rounded-2xl p-5 text-sm text-muted">
+              <span className="mr-2 text-lg">{item.icon}</span>
+              {item.text}
+            </div>
+          </Reveal>
         ))}
       </section>
 
       {/* Selected Work */}
       <section id="work" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Selected Work</p>
-        <h2 className="mt-2 text-2xl sm:text-3xl font-bold">What I&rsquo;ve built</h2>
+        <h2 className="font-display mt-2 text-2xl sm:text-3xl font-bold">What I&rsquo;ve built</h2>
 
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {projects.map((p) => (
-            <div key={p.key} className="card glow-border relative flex flex-col gap-4 rounded-2xl p-6">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">{p.emoji}</span>
-                  <a href={p.href} target="_blank" rel="noreferrer" className="text-lg font-semibold hover:text-accent-2">
-                    {p.name}
-                  </a>
-                </div>
-                <p className="mt-1 text-sm text-muted">{p.tagline}</p>
-              </div>
+          {projects.map((p, i) => (
+            <ProjectCard key={p.key} p={p} delay={i * 60} />
+          ))}
+        </div>
+      </section>
 
-              <div className="flex flex-wrap items-center gap-2">
-                {p.context &&
-                  (p.contextHref ? (
-                    <a href={p.contextHref} target="_blank" rel="noreferrer" className="chip whitespace-normal text-left transition hover:border-accent/50 hover:text-accent-2">
-                      {p.context}
-                      <span aria-hidden="true" className="opacity-70">↗</span>
-                    </a>
-                  ) : (
-                    <span className="chip whitespace-normal text-left">{p.context}</span>
-                  ))}
-                {p.statusBadges.map((b) => (
-                  <StatusBadge key={b.label} badge={b} />
-                ))}
-              </div>
+      {/* Research */}
+      <section id="research" className="mt-16 scroll-mt-8 lg:mt-24">
+        <p className="section-label">Research</p>
+        <h2 className="font-display mt-2 text-2xl sm:text-3xl font-bold">What I&rsquo;m exploring</h2>
 
-              <p className="text-sm leading-relaxed text-muted">{p.description}</p>
-
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-muted">Stack</p>
-                <div className="mt-2 flex flex-wrap gap-x-2 gap-y-1">
-                  {p.stack.flat().map((s) => (
-                    <TechChip key={s} label={s} />
-                  ))}
-                </div>
-              </div>
-
-              {p.credentials && (
-                <div className="rounded-xl border border-gold/25 bg-gold/[0.06] p-3">
-                  <p className="text-[11px] font-medium text-muted">
-                    Studied Foundry IQ before building ARGUS, then competed in the Agents League Reasoning Agents track — and won Hack for Good (1 of 3).
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-3">
-                    {p.credentials.map((c) => (
-                      <a
-                        key={c.href}
-                        href={c.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        title={c.label}
-                        className="flex items-center gap-2 rounded-lg border border-border bg-surface px-2 py-1.5 transition hover:border-accent/50"
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={c.img} alt={c.label} width={32} height={32} className="rounded-full" />
-                        <span className="leading-tight">
-                          <span className="block text-[11px] font-semibold">{c.label}</span>
-                          <span className="block text-[10px] text-muted">{c.sub}</span>
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="mt-auto flex flex-wrap gap-3 pt-2 text-sm">
-                <a href={p.href} target="_blank" rel="noreferrer" className="font-medium text-accent-2 hover:underline">
-                  Repository ↗
-                </a>
-                {p.demoHref && (
-                  <a href={p.demoHref} target="_blank" rel="noreferrer" className="font-medium text-accent-2 hover:underline">
-                    Watch demo ↗
-                  </a>
-                )}
-                {p.liveLinks?.map((l) => (
-                  <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="font-medium text-accent-2 hover:underline">
-                    {l.label} ↗
-                  </a>
-                ))}
-              </div>
-            </div>
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {research.map((p, i) => (
+            <ProjectCard key={p.key} p={p} delay={i * 60} />
           ))}
         </div>
       </section>
@@ -570,7 +634,7 @@ export default function Home() {
       {/* What I work on */}
       <section id="focus" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Focus Areas</p>
-        <h2 className="mt-2 text-2xl sm:text-3xl font-bold">What I work on</h2>
+        <h2 className="font-display mt-2 text-2xl sm:text-3xl font-bold">What I work on</h2>
 
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {[
@@ -602,7 +666,7 @@ export default function Home() {
       {/* Tech Stack */}
       <section id="stack" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Tech Stack</p>
-        <h2 className="mt-2 text-2xl sm:text-3xl font-bold">Tools I reach for</h2>
+        <h2 className="font-display mt-2 text-2xl sm:text-3xl font-bold">Tools I reach for</h2>
 
         <div className="mt-8 space-y-8">
           {techGroups.map((g) => (
@@ -621,7 +685,7 @@ export default function Home() {
       {/* Career Journey */}
       <section id="career" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Career Journey</p>
-        <h2 className="mt-2 text-2xl sm:text-3xl font-bold">Where I&rsquo;ve worked</h2>
+        <h2 className="font-display mt-2 text-2xl sm:text-3xl font-bold">Where I&rsquo;ve worked</h2>
 
         <div className="mt-8">
           {career.map((c, i) => (
@@ -646,7 +710,7 @@ export default function Home() {
       {/* Experiments & learning */}
       <section className="mt-16 lg:mt-24">
         <p className="section-label">Also on GitHub</p>
-        <h2 className="mt-2 text-2xl sm:text-3xl font-bold">Experiments &amp; learning</h2>
+        <h2 className="font-display mt-2 text-2xl sm:text-3xl font-bold">Experiments &amp; learning</h2>
 
         <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 2xl:grid-cols-4">
           {experiments.map((e) => (
@@ -667,7 +731,7 @@ export default function Home() {
       {/* Recognition */}
       <section id="certs" className="mt-16 scroll-mt-8 lg:mt-24">
         <p className="section-label">Certifications</p>
-        <h2 className="mt-2 text-2xl sm:text-3xl font-bold">Credentials &amp; training</h2>
+        <h2 className="font-display mt-2 text-2xl sm:text-3xl font-bold">Credentials &amp; training</h2>
 
         <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 2xl:grid-cols-3">
           {certifications.map((c) => (
@@ -707,11 +771,6 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="mt-16 border-t border-border pt-8 text-center text-xs text-muted lg:mt-24">
-        <Link href="https://github.com/iarjunganesh" target="_blank" className="hover:text-accent-2">
-          github.com/iarjunganesh
-        </Link>
-      </footer>
       </main>
     </div>
   );
