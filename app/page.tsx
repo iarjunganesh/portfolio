@@ -139,17 +139,19 @@ const projects: Project[] = [
     angle: "Nobody reads a transaction CSV for fun — but everyone will watch a 60-second recap of their own year.",
     context: "Backblaze Generative Media · Devpost",
     contextHref: "https://backblaze-generative-media.devpost.com/",
-    statusBadges: [{ label: "In development", tone: "gold" }],
+    statusBadges: [{ label: "Live in production", tone: "green" }],
     description:
-      "Spotify Wrapped, but for your bank account — an agentic pipeline that turns a transaction CSV into a personalized 60-second narrated recap video.",
+      "Spotify Wrapped, but for your bank account — an agentic pipeline that turns a transaction CSV into a personalized 60-second narrated recap video. Three of four AI steps route through the Genblaze SDK; Backblaze B2 is the source of truth, storing 14 artifacts per session with a SHA-256 apiece, so share links survive a full backend redeploy.",
     liveLinks: [
       { label: "Live app", href: "https://bankers-wrapped.arjunganesh.dev" },
       { label: "API docs", href: "https://bankers-wrapped-api-production.up.railway.app/docs" },
+      { label: "Devpost", href: "https://devpost.com/software/banker-s-wrapped" },
     ],
+    demoHref: "https://youtu.be/eTw1TCcYFk4",
     stack: [
       ["Backblaze B2", "Genblaze SDK", "GMI Cloud Seedream", "NVIDIA NIM", "OpenAI TTS-1", "FFmpeg"],
-      ["Next.js", "React 19", "TypeScript"],
-      ["Python", "FastAPI", "Plaid Sandbox", "Railway"],
+      ["Next.js 16", "React 19", "TypeScript"],
+      ["Python 3.14", "FastAPI", "asyncio agents", "Plaid Sandbox", "Railway", "Vercel"],
     ],
   },
   {
