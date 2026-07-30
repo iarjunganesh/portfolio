@@ -1,9 +1,16 @@
+import Image from "next/image";
+
 import ContactMenus from "./contact-menus";
 import ScrollTopLink from "./scroll-top-link";
 import AgentTrace from "./agent-trace";
 import Reveal from "./reveal";
 import DeviceFrame from "./device-frame";
 import StickyNav from "./sticky-nav";
+import agentsLeagueRecognitionLight from "../public/argus-agents-league-recognition-light.png";
+import agentsLeagueRecognitionDark from "../public/argus-agents-league-recognition-dark.png";
+
+const ARGUS_BLOG_URL =
+  "https://techcommunity.microsoft.com/blog/educatordeveloperblog/argus-compliance-infrastructure-that-believes-financial-access-is-a-human-right/4539074";
 
 function LinkedInIcon({ className }: { className?: string }) {
   return (
@@ -86,6 +93,7 @@ const projects: Project[] = [
     description:
       "Five specialist AI agents, coordinated over the A2A protocol on Azure AI Foundry, run KYC, AML, and risk screening — every finding grounded in cited regulation via Foundry IQ, every decision backed by a full audit trail. Built solo; one of three Hack for Good winners.",
     demoHref: "https://youtu.be/yaTNCgCwX4s",
+    liveLinks: [{ label: "Microsoft write-up", href: ARGUS_BLOG_URL }],
     stack: [
       ["Azure AI Foundry", "Azure OpenAI GPT-4o", "Foundry IQ", "Semantic Kernel", "A2A"],
       ["Azure AI Search", "Cosmos DB", "RAG hybrid search", "MCP", "Gradio"],
@@ -539,6 +547,7 @@ export default function Home() {
               {[
                 { href: "#about", label: "About" },
                 { href: "#work", label: "Selected Work" },
+                { href: "#press", label: "Press & Recognition" },
                 { href: "#research", label: "Research" },
                 { href: "#focus", label: "Focus Areas" },
                 { href: "#stack", label: "Tech Stack" },
@@ -571,6 +580,14 @@ export default function Home() {
             className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-xs font-semibold text-gold"
           >
             🏆 Microsoft Agents League — AI Skills Fest 2026 · Hack for Good Winner (1 of 3)
+          </a>
+          <a
+            href={ARGUS_BLOG_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-2 text-xs font-semibold text-accent-2 transition hover:brightness-110"
+          >
+            📝 Published by Microsoft — ARGUS guest post on the Educator Developer Blog
           </a>
           <a
             href="https://www.credly.com/badges/9bd97539-00ed-40e7-990e-829e8592b1bd"
@@ -617,6 +634,85 @@ export default function Home() {
             <ProjectCard key={p.key} p={p} delay={i * 60} />
           ))}
         </div>
+      </section>
+
+      {/* Press & Recognition */}
+      <section id="press" className="mt-16 scroll-mt-8 lg:mt-24">
+        <p className="section-label">Press &amp; Recognition</p>
+        <h2 className="font-display mt-2 text-2xl sm:text-3xl font-bold">What others said</h2>
+
+        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <Reveal>
+            <a
+              href={ARGUS_BLOG_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="card glow-border flex h-full flex-col gap-3 rounded-2xl p-6 transition hover:border-accent/40"
+            >
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="chip">techcommunity.microsoft.com</span>
+                <span className="chip">Guest post · July 2026</span>
+              </div>
+              <h3 className="font-display text-lg font-semibold leading-snug">
+                ARGUS: Compliance Infrastructure That Believes Financial Access Is a Human Right
+              </h3>
+              <p className="text-sm leading-relaxed text-muted">
+                Microsoft published my full write-up on the Educator Developer Blog — the problem ARGUS
+                solves, how the five agents coordinate over A2A, and why every risk score has to come with
+                a citation.
+              </p>
+              <span className="mt-auto pt-2 text-sm font-medium text-accent-2">
+                Read on Microsoft Tech Community ↗
+              </span>
+            </a>
+          </Reveal>
+
+          <Reveal delay={60}>
+            <figure className="card flex h-full flex-col gap-4 rounded-2xl border-gold/25 p-6">
+              <blockquote className="text-balance text-base leading-relaxed">
+                <span className="text-gold">&ldquo;</span>
+                &hellip;this is a standout example of how agentic systems can solve real-world problems with
+                measurable social impact. A brilliant contribution to the Microsoft Agents League community.
+                <span className="text-gold">&rdquo;</span>
+              </blockquote>
+              <figcaption className="mt-auto text-xs text-muted">
+                <span className="block font-semibold text-foreground">Lee Stott · Microsoft</span>
+                announcing the Hack for Good result in{" "}
+                <span className="font-mono">#agentsleague</span>, Microsoft Foundry Discord
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
+
+        <Reveal delay={120}>
+          <figure className="mt-6">
+            <div className="device-frame">
+              <div className="device-frame__bar">
+                <span className="device-frame__dot" />
+                <span className="device-frame__dot" />
+                <span className="device-frame__dot" />
+                <span className="ml-2 truncate">discord.com · Microsoft Foundry / #agentsleague</span>
+              </div>
+              <Image
+                src={agentsLeagueRecognitionLight}
+                alt="Screenshot of the #agentsleague channel in the Microsoft Foundry Discord. Lee Stott of Microsoft posts a message titled A Well-Deserved Win on Hack for Good, congratulating Arjun Ganesh, summarising how ARGUS makes every decision traceable, explainable, and grounded, listing its five specialist agents, and linking the Microsoft Tech Community write-up."
+                placeholder="blur"
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="h-auto w-full dark:hidden"
+              />
+              <Image
+                src={agentsLeagueRecognitionDark}
+                alt="Screenshot of the #agentsleague channel in the Microsoft Foundry Discord. Lee Stott of Microsoft posts a message titled A Well-Deserved Win on Hack for Good, congratulating Arjun Ganesh, summarising how ARGUS makes every decision traceable, explainable, and grounded, listing its five specialist agents, and linking the Microsoft Tech Community write-up."
+                placeholder="blur"
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="hidden h-auto w-full dark:block"
+              />
+            </div>
+            <figcaption className="mt-3 text-xs text-muted">
+              Announced in the Microsoft Foundry Discord after the Agents League Hack for Good result.
+            </figcaption>
+          </figure>
+        </Reveal>
       </section>
 
       {/* Research */}
