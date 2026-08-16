@@ -1,43 +1,17 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-
+/**
+ * Scroll reveal — CSS only, no JavaScript.
+ *
+ * The animation is driven by `animation-timeline: view()` (see globals.css).
+ * Browsers without scroll-driven animation support simply render the content
+ * in its final state, so nothing is ever hidden behind a script that hasn't
+ * run yet.
+ */
 export default function Reveal({
   children,
-  delay = 0,
   className = "",
 }: {
   children: React.ReactNode;
-  delay?: number;
   className?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.12 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      data-revealed={revealed}
-      className={`reveal ${className}`}
-      style={{ transitionDelay: revealed ? `${delay}ms` : "0ms" }}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`reveal ${className}`}>{children}</div>;
 }

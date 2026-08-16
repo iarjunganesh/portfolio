@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# arjunganesh.dev
 
-## Getting Started
+Personal portfolio for Arjun Ganesh — senior architect and backend systems engineer.
 
-First, run the development server:
+Built with [Next.js](https://nextjs.org) (App Router) and Tailwind CSS v4, deployed on Vercel.
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run lint    # eslint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+Each section is its own route, and navigating between them crossfades using
+React's `<ViewTransition>` (enabled via `experimental.viewTransition` in
+[`next.config.ts`](next.config.ts)).
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  layout.tsx        root layout — masthead, view transition wrapper, footer
+  page.tsx          landing view — the name, and Bhagavad Gita 11.32
+  data.ts           all portfolio content: projects, career, certs, contact, verse
+  site-nav.tsx      persistent masthead nav, active route via usePathname
+  section-page.tsx  shared frame for every section route (title + pager)
+  gita-verse.tsx    the verse, set in Tiro Devanagari Sanskrit
+  work-item.tsx     project entry with pointer-tracked spotlight
+  device-frame.tsx  click-to-load inline preview of a live app
+  reveal.tsx        scroll reveal wrapper (CSS scroll-driven, no JS)
+  globals.css       design tokens, layout, motion
+  about/ work/ press/ research/ focus/ stack/ career/ certs/ contact/
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Section indices (`01`–`09`) double as the position in `NAV`, which is what
+drives the prev/next pager — so reordering `NAV` and the `n` props keeps them
+in sync automatically.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Conventions
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Content lives in [`app/data.ts`](app/data.ts)**, not in markup. Every claim,
+  link, and date there is verified — do not add metrics or credentials that
+  cannot be sourced.
+- **The Gita verse is quoted from the edition it cites.** `GITA` in `data.ts`
+  takes its transliteration and translation from the self-hosted
+  `public/Bhagavad-Gita-As-It-Is.pdf` (TEXT 32, PDF page 686), and the link
+  deep-links to that page. If the PDF is ever swapped for a different edition,
+  the transliteration and translation must be re-extracted from it — different
+  editions romanize and translate differently. Note the PDF stores its roman
+  and Devanagari text in a legacy Balaram font encoding, so extracted text
+  needs decoding to Unicode.
+- **Project resources use a fixed vocabulary**, defined as `RESOURCE_ORDER` in
+  `data.ts` and enforced by the `ResourceLabel` type: `Code`, `Live app`,
+  `API docs`, `Demo video`, `Devpost`, `Write-up` — always listed in that
+  order. Omit a row rather than inventing one; not every project has every
+  resource. Re-check the links before publishing.
+- **Two accent hues only**: `--signal` (phosphor amber in dark, burnt orange in
+  light) and `--live` for status. Everything else is ink on paper.
+- **Motion degrades**: scroll reveals use `animation-timeline: view()` and
+  content is visible by default, so nothing is hidden behind a script that has
+  not run. All motion is disabled under `prefers-reduced-motion`.

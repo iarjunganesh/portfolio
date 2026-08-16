@@ -6,7 +6,7 @@ export default function DeviceFrame({
   url,
   embedUrl,
   label,
-  height = 340,
+  height = 320,
 }: {
   url: string;
   embedUrl?: string;
@@ -17,40 +17,47 @@ export default function DeviceFrame({
   const displayUrl = url.replace(/^https?:\/\//, "");
 
   return (
-    <div className="device-frame">
-      <div className="device-frame__bar">
-        <span className="device-frame__dot" />
-        <span className="device-frame__dot" />
-        <span className="device-frame__dot" />
-        <span className="ml-2 truncate">{displayUrl}</span>
+    <div className="frame">
+      <div className="frame-bar">
+        <span className="frame-dot" aria-hidden="true" />
+        <span className="frame-dot" aria-hidden="true" />
+        <span className="frame-dot" aria-hidden="true" />
+        <span
+          style={{
+            marginLeft: "0.35rem",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {displayUrl}
+        </span>
         <a
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="ml-auto shrink-0 text-accent-2 hover:underline"
+          className="link link-ghost"
+          style={{ marginLeft: "auto", flex: "none", color: "var(--signal)" }}
         >
           open ↗
         </a>
       </div>
-      <div className="relative bg-surface-2" style={{ height }}>
+
+      <div className="frame-stage" style={{ height }}>
         {loaded ? (
           <iframe
             src={embedUrl ?? url}
             title={label}
-            className="h-full w-full border-0"
+            style={{ width: "100%", height: "100%", border: 0 }}
             loading="lazy"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           />
         ) : (
-          <button
-            type="button"
-            onClick={() => setLoaded(true)}
-            className="group flex h-full w-full flex-col items-center justify-center gap-2 text-sm text-muted transition hover:text-foreground"
-          >
-            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface transition group-hover:border-accent/50 group-hover:text-accent-2">
+          <button type="button" onClick={() => setLoaded(true)} className="frame-launch">
+            <span className="play" aria-hidden="true">
               ▶
             </span>
-            Launch inline preview of {label}
+            Launch inline preview — {label}
           </button>
         )}
       </div>
