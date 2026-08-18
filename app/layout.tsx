@@ -99,7 +99,6 @@ export default function RootLayout({
         </ViewTransition>
         <footer className="footer shell">
           <span>Stockholm, SE</span>
-          <span>Built with Next.js</span>
         </footer>
       </body>
     </html>

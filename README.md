@@ -18,13 +18,18 @@ npm run build   # production build
 npm run lint    # eslint
 npm run typecheck
 npm run check:links
+npm run assets:generate  # regenerate Press and Career artwork (requires FFmpeg)
 ```
+
+The generated recognition plates use a local monospace font. Set
+`PORTFOLIO_ASSET_FONT` and `PORTFOLIO_ASSET_FONT_BOLD` when the platform
+defaults are unavailable. The career map is derived from public-domain
+[Natural Earth](https://www.naturalearthdata.com/) 1:110m land geometry.
 
 ## Structure
 
 Each section is its own route, and navigating between them crossfades using
-React's `<ViewTransition>` (enabled via `experimental.viewTransition` in
-[`next.config.ts`](next.config.ts)).
+React's `<ViewTransition>`, supported directly by the Next.js App Router.
 
 ```
 app/
@@ -39,6 +44,9 @@ app/
   reveal.tsx        scroll reveal wrapper (CSS scroll-driven, no JS)
   globals.css       design tokens, layout, motion
   about/ work/ press/ research/ focus/ stack/ career/ certs/ contact/
+scripts/
+  check-links.mjs              external evidence link validation
+  generate-visual-assets.mjs   reproducible Press and Career artwork
 ```
 
 Section indices (`01`–`09`) double as the position in `NAV`, which is what

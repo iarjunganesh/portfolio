@@ -92,7 +92,7 @@ export const projects: Project[] = [
     ],
     evidence: [
       "Microsoft Agents League 2026 Hack for Good winner (1 of 3)",
-      "Independent Microsoft editorial write-up",
+      "Guest post published by Microsoft Tech Community",
     ],
     context: "Microsoft Agents League — AI Skills Fest 2026 · Reasoning Agents track",
     contextHref: "https://info.microsoft.com/Agents-League-Hackathon-Registration.html",
@@ -168,7 +168,7 @@ export const projects: Project[] = [
       "Summaries are bounded to technical release content",
       "Semantic deduplication limits repeated release signals",
     ],
-    evidence: ["Public web application", "Published API documentation", "Recorded demo"],
+    evidence: ["Public web application", "Recorded demo"],
     context: "OpenAI Build Week · Devpost",
     contextHref: "https://openai.devpost.com/",
     stack: [
@@ -268,11 +268,11 @@ export const research = [
     key: "q1729",
     name: "q1729",
     question:
-      "At what problem size does quantum simulation stop being competitive with a hand-written CUDA kernel on the same silicon?",
+      "On the same GPU, what wall-time cost is required to reach a given numerical error with Ramanujan CUDA versus simulated Quantum Amplitude Estimation?",
     method:
       "Compare Ramanujan's 1914 pi series in a CUDA C++ kernel with Quantum Amplitude Estimation in CUDA-Q/cuQuantum, validated against exact SymPy ground truth.",
     result:
-      "On an RTX 5070 Laptop GPU, the classical kernel reached 16 digits in 2.6 ms; simulated QAE reached 5 digits in 0.44 s. The measured run found no crossover on this hardware.",
+      "On an RTX 5070 Laptop GPU, the CUDA implementation reached double-precision saturation (~16 digits) in ~2.6 ms, while simulated QAE reached ~5 digits in ~0.44 s. No crossover was observed on this hardware.",
     next:
       "Run the optional H100 axis, then open the hardware-agnostic benchmark format to community submissions.",
     status: "active",
@@ -318,12 +318,18 @@ export const research = [
     method:
       "Run configurable CPU/GPU benchmark sweeps, export the measurements to CSV, and inspect empirical complexity and speedup in an interactive dashboard.",
     result:
-      "The published sweep reports a 16.6x radix-sort speedup at n = 100,000, while BFS and reductions remain slower than their CPU baselines at tested sizes.",
+      "In the published sweep, radix sort is the strongest GPU result, while BFS and reductions remain slower than their CPU baselines at the tested sizes.",
     next:
       "Extend the documented benchmark protocol to additional algorithms, input shapes, and verified GPU runs.",
     status: "active",
     stack: ["Python", "CuPy", "Numba CUDA", "Dash"],
     href: "https://github.com/iarjunganesh/pythonic-algorithms-lab",
+    artifacts: [
+      {
+        label: "Published speedup plot",
+        href: "https://github.com/iarjunganesh/pythonic-algorithms-lab/blob/main/assets/plots/speedup_all.png",
+      },
+    ],
   },
 ] satisfies ResearchItem[];
 
@@ -477,8 +483,8 @@ export const NAV = [
   { href: "/press", label: "Press" },
   { href: "/research", label: "Research" },
   { href: "/focus", label: "Principles" },
-  { href: "/stack", label: "Stack" },
+  { href: "/stack", label: "Capabilities" },
   { href: "/career", label: "Career" },
-  { href: "/certs", label: "Certs" },
+  { href: "/certs", label: "Credentials" },
   { href: "/contact", label: "Contact" },
 ];

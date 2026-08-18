@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import SectionPage from "../section-page";
 import { ARGUS_BLOG_URL } from "../data";
-import agentsLeagueRecognitionLight from "../../public/argus-agents-league-recognition-light.png";
-import agentsLeagueRecognitionDark from "../../public/argus-agents-league-recognition-dark.png";
+import recognitionQuoteLight from "../../public/argus-recognition-quote-light.png";
+import recognitionQuoteDark from "../../public/argus-recognition-quote-dark.png";
+import recognitionQuoteLightMobile from "../../public/argus-recognition-quote-light-mobile.png";
+import recognitionQuoteDarkMobile from "../../public/argus-recognition-quote-dark-mobile.png";
 
 export const metadata: Metadata = {
   title: "Press",
@@ -37,12 +39,20 @@ export default function PressPage() {
 
         <div className="press-shot">
           <picture>
-            <source media="(prefers-color-scheme: dark)" srcSet={agentsLeagueRecognitionDark.src} />
+            <source
+              media="(max-width: 600px) and (prefers-color-scheme: dark)"
+              srcSet={recognitionQuoteDarkMobile.src}
+            />
+            <source
+              media="(max-width: 600px)"
+              srcSet={recognitionQuoteLightMobile.src}
+            />
+            <source media="(prefers-color-scheme: dark)" srcSet={recognitionQuoteDark.src} />
             <img
-              src={agentsLeagueRecognitionLight.src}
-              alt="Microsoft Agents League recognition for ARGUS"
-              width={agentsLeagueRecognitionLight.width}
-              height={agentsLeagueRecognitionLight.height}
+              src={recognitionQuoteLight.src}
+              alt="Lee Stott of Microsoft congratulates Arjun Ganesh for ARGUS and its measurable social impact"
+              width={recognitionQuoteLight.width}
+              height={recognitionQuoteLight.height}
               style={{ display: "block", width: "100%", height: "auto" }}
             />
           </picture>

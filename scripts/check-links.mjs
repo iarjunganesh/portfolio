@@ -1,12 +1,13 @@
-import { readFile } from "node:fs/promises";
-import { glob } from "node:fs/promises";
+import { glob, readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const SOURCE_PATTERN = new URL("../app/", import.meta.url);
+const SOURCE_DIR = fileURLToPath(new URL("../app/", import.meta.url));
 const DEFINITIVE_FAILURES = new Set([404, 410]);
 const urls = new Set();
 
-for await (const relativePath of glob("**/*.{ts,tsx}", { cwd: SOURCE_PATTERN })) {
-  const source = await readFile(new URL(relativePath, SOURCE_PATTERN), "utf8");
+for await (const relativePath of glob("**/*.{ts,tsx}", { cwd: SOURCE_DIR })) {
+  const source = await readFile(join(SOURCE_DIR, relativePath), "utf8");
   for (const match of source.matchAll(/https:\/\/[^\s"'`<>)}]+/g)) {
     const url = match[0].replace(/[.,;:]$/, "");
     if (!url.includes("arjunganesh.dev")) urls.add(url);

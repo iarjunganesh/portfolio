@@ -343,14 +343,6 @@ img {
   padding-block: clamp(3rem, 9vh, 6rem) clamp(3rem, 8vh, 5rem);
 }
 
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.5rem;
-  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
-}
-
 .display {
   font-size: var(--t-display);
   font-weight: 700;
@@ -1116,6 +1108,111 @@ a.work-link:hover .work-name .arrow {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
+   CAREER MAP
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.career-map {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  margin-bottom: clamp(2.5rem, 7vh, 4.5rem);
+  border-block: 1px solid var(--rule);
+  overflow: hidden;
+  isolation: isolate;
+}
+.career-map-plane {
+  position: absolute;
+  inset: 0;
+}
+.career-map-plane::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+  -webkit-mask: url("/world-map.svg") center / contain no-repeat;
+  mask: url("/world-map.svg") center / contain no-repeat;
+  opacity: 0.08;
+}
+.career-marker {
+  position: absolute;
+  left: var(--map-x);
+  top: var(--map-y);
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+.career-marker-point {
+  position: relative;
+  display: block;
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 0 1px var(--signal), 0 0 0 0.5rem var(--signal-soft);
+}
+.career-marker-stockholm .career-marker-point {
+  background: var(--live);
+  box-shadow: 0 0 0 1px var(--live);
+}
+.career-marker-stockholm .career-marker-point::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--live);
+  border-radius: 50%;
+  animation: current-location 3.2s ease-out infinite;
+}
+@keyframes current-location {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(3.4);
+  }
+}
+.career-marker-label {
+  position: absolute;
+  left: 1rem;
+  top: -0.35rem;
+  display: grid;
+  width: max-content;
+  white-space: nowrap;
+  font-size: var(--t-label);
+  line-height: 1.45;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.career-marker-label strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.career-marker-sydney .career-marker-label,
+.career-marker-gothenburg .career-marker-label {
+  left: auto;
+  right: 1rem;
+  text-align: right;
+}
+.career-marker-gothenburg .career-marker-label {
+  top: 0.6rem;
+}
+.career-marker-stockholm .career-marker-label {
+  top: -1.5rem;
+}
+@media (max-width: 600px) {
+  .career-marker-label {
+    font-size: 0.6rem;
+  }
+  .career-marker-point {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
    PRESS
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -1134,9 +1231,8 @@ a.work-link:hover .work-name .arrow {
 }
 .press-shot {
   margin-top: 1.75rem;
-  border: 1px solid var(--rule);
   overflow: hidden;
-  background: var(--bg-3);
+  box-shadow: var(--shadow);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════

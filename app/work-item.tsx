@@ -9,7 +9,7 @@ export default function WorkItem({ p, n }: { p: Project; n: number }) {
   );
 
   return (
-    <article className="work-item">
+    <article id={p.key} className="work-item">
       <Reveal>
         <div className="work-head">
           <span className="index">{String(n).padStart(2, "0")}</span>

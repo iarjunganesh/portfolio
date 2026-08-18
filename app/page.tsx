@@ -18,14 +18,6 @@ function SplitLine({ text, start }: { text: string; start: number }) {
 export default function Home() {
   return (
     <main className="hero shell" id="main">
-      <div className="hero-meta">
-        <span className="label" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem" }}>
-          <span className="status-dot" aria-hidden="true" />
-          Anti-financial crime engineering @ Swedbank
-        </span>
-        <span className="label">Stockholm, SE</span>
-      </div>
-
       <h1 className="display">
         <SplitLine text="ARJUN" start={0} />
         <SplitLine text="GANESH" start={5} />
