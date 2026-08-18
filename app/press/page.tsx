@@ -6,6 +6,7 @@ import agentsLeagueRecognitionDark from "../../public/argus-agents-league-recogn
 
 export const metadata: Metadata = {
   title: "Press",
+  alternates: { canonical: "/press" },
   description:
     "ARGUS won Hack for Good at the Microsoft Agents League 2026 and was featured on the Microsoft Tech Community blog.",
 };

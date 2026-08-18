@@ -4,6 +4,7 @@ import { career } from "../data";
 
 export const metadata: Metadata = {
   title: "Career",
+  alternates: { canonical: "/career" },
   description:
     "Swedbank, Viaplay Group, Expleo Technology Nordic and IBM — 13+ years across regulated banking, media streaming and anti-financial crime.",
 };

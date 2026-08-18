@@ -1,52 +1,26 @@
 import type { Metadata } from "next";
 import SectionPage from "../section-page";
-import { techStack } from "../data";
+import { capabilities } from "../data";
 
 export const metadata: Metadata = {
   title: "Stack",
+  alternates: { canonical: "/stack" },
   description:
-    "Java, Spring Boot, Python, FastAPI, Azure AI Foundry, Semantic Kernel, CUDA, pgvector, OpenTelemetry and more.",
+    "Engineering capabilities backed by professional systems, deployed projects, and measured research.",
 };
-
-// Two lanes of the stack, scrolling in opposite directions.
-const lanes = [
-  techStack.flatMap((g) => g.items).filter((_, i) => i % 2 === 0),
-  techStack.flatMap((g) => g.items).filter((_, i) => i % 2 === 1),
-];
 
 export default function StackPage() {
   return (
-    <SectionPage n="06" title="Stack">
-      <div style={{ display: "grid", gap: "2rem" }}>
-        {techStack.map((g) => (
-          <div key={g.label}>
-            <span className="label">{g.label}</span>
-            <div className="chips">
-              {g.items.map((it) => (
-                <span key={it} className="chip">
-                  {it}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="marquee-set">
-        {lanes.map((lane, i) => (
-          <div key={i} className="marquee" data-dir={i % 2 ? "rev" : "fwd"} aria-hidden="true">
-            <div className="marquee-track">
-              {/* duplicated once so the -50% translate loops seamlessly */}
-              {[0, 1].map((dup) => (
-                <div key={dup} className="marquee-group">
-                  {lane.map((it) => (
-                    <span key={it} className="marquee-item">
-                      {it}
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
+    <SectionPage
+      n="06"
+      title="Capabilities"
+      lede="Tools change. These capabilities are backed by systems, roles, and measured work."
+    >
+      <div>
+        {capabilities.map((capability) => (
+          <div key={capability.label} className="row capability-row">
+            <h2 className="row-title">{capability.label}</h2>
+            <p className="muted">{capability.evidence}</p>
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 # arjunganesh.dev
 
-Personal portfolio for Arjun Ganesh — senior architect and backend systems engineer.
+Personal portfolio for Arjun Ganesh — software engineer and systems builder in Stockholm.
 
 Built with [Next.js](https://nextjs.org) (App Router) and Tailwind CSS v4, deployed on Vercel.
 
@@ -16,6 +16,8 @@ Open [http://localhost:3000](http://localhost:3000).
 ```bash
 npm run build   # production build
 npm run lint    # eslint
+npm run typecheck
+npm run check:links
 ```
 
 ## Structure
@@ -32,7 +34,7 @@ app/
   site-nav.tsx      persistent masthead nav, active route via usePathname
   section-page.tsx  shared frame for every section route (title + pager)
   gita-verse.tsx    the verse, set in Tiro Devanagari Sanskrit
-  work-item.tsx     project entry with pointer-tracked spotlight
+  work-item.tsx     server-rendered project case study
   device-frame.tsx  click-to-load inline preview of a live app
   reveal.tsx        scroll reveal wrapper (CSS scroll-driven, no JS)
   globals.css       design tokens, layout, motion

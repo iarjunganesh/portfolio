@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { NAV } from "./data";
 
 export default function SiteNav() {
   const pathname = usePathname();
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    navRef.current
+      ?.querySelector('[data-active="true"]')
+      ?.scrollIntoView({ behavior: "instant", block: "nearest", inline: "center" });
+  }, [pathname]);
 
   return (
     // Anchored during view transitions (see globals.css) so only the content
@@ -14,10 +22,10 @@ export default function SiteNav() {
       <div className="masthead-inner shell">
         <Link href="/" className="mark" aria-label="Arjun Ganesh — home">
           <span className="mark-name">Arjun Ganesh</span>
-          <span className="mark-role">Agentic AI · Distributed systems</span>
+          <span className="mark-role">Governed AI · Distributed systems</span>
         </Link>
 
-        <nav className="masthead-nav" aria-label="Primary">
+        <nav ref={navRef} className="masthead-nav" aria-label="Primary">
           {NAV.map((l) => {
             const on = pathname === l.href;
             return (

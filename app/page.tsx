@@ -33,9 +33,9 @@ export default function Home() {
 
       <GitaVerse />
 
-      <Link href="/about" className="scroll-cue">
+      <Link href="/work" className="scroll-cue">
         <span className="bar" aria-hidden="true" />
-        About →
+        Selected work →
       </Link>
     </main>
   );

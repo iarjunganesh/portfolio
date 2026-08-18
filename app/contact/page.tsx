@@ -4,51 +4,39 @@ import { CONTACT } from "../data";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Arjun Ganesh — email, LinkedIn, GitHub, Discord and CV.",
+  alternates: { canonical: "/contact" },
+  description: "Contact Arjun Ganesh by email or LinkedIn, view GitHub, or download the CV.",
 };
 
 export default function ContactPage() {
   return (
     <SectionPage n="09" title="Let's build something auditable">
       <div>
-        <span className="label">Email</span>
-        <div className="contact-links" style={{ marginTop: "0.85rem" }}>
-          {CONTACT.emails.map((e, i) => (
-            <a
-              key={e.label}
-              href={e.href}
-              className={i === 0 ? "btn btn-solid" : "btn"}
-              title={e.href.replace("mailto:", "")}
-            >
-              {e.label}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <div style={{ marginTop: "2.5rem" }}>
-        <span className="label">Elsewhere</span>
-        <div className="contact-links" style={{ marginTop: "0.85rem" }}>
+        <span className="label">Primary</span>
+        <div className="contact-links contact-actions">
+          <a href={`mailto:${CONTACT.email}`} className="btn btn-solid">
+            Email
+          </a>
           <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className="btn">
             LinkedIn ↗
           </a>
           <a href={CONTACT.github} target="_blank" rel="noreferrer" className="btn">
             GitHub ↗
           </a>
-          <a href={CONTACT.discord} target="_blank" rel="noreferrer" className="btn">
-            Discord ↗
+          <a href={CONTACT.cv} download className="btn">
+            CV — PDF ↓
           </a>
         </div>
       </div>
 
-      <div style={{ marginTop: "2.5rem" }}>
-        <span className="label">Résumé</span>
-        <div className="contact-links" style={{ marginTop: "0.85rem" }}>
-          <a href={CONTACT.cv} download className="btn">
-            CV — PDF ↓
-          </a>
+      <div className="contact-section">
+        <span className="label">Secondary</span>
+        <div className="contact-links contact-actions">
           <a href={CONTACT.cvDocx} download className="btn">
             CV — DOCX ↓
+          </a>
+          <a href={CONTACT.discord} target="_blank" rel="noreferrer" className="btn">
+            Discord ↗
           </a>
         </div>
       </div>

@@ -26,19 +26,47 @@ const tiroSanskrit = Tiro_Devanagari_Sanskrit({
 
 export const metadata: Metadata = {
   title: {
-    default: "Arjun Ganesh — Senior Engineer, Agentic AI Systems",
+    default: "Arjun Ganesh — Systems Engineer, Applied AI",
     template: "%s — Arjun Ganesh",
   },
   description:
-    "13+ years in distributed systems. Building agentic AI on Azure AI Foundry, Google ADK, A2A, RAG, and MCP — ARGUS (Microsoft Agents League 2026 Hack for Good winner), Bastion, DRIFT, Banker's Wrapped, and Continuum.",
+    "Software engineer in Stockholm with 13+ years across banking, streaming, and distributed systems; independently building governed applied AI and GPU research.",
   metadataBase: new URL("https://arjunganesh.dev"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Arjun Ganesh — Senior Engineer, Agentic AI Systems",
+    title: "Arjun Ganesh — Systems Engineer, Applied AI",
     description:
-      "13+ years in distributed systems. Building agentic AI on Azure AI Foundry, A2A, RAG, and MCP.",
+      "Systems engineer building trustworthy applied AI under real constraints.",
     url: "https://arjunganesh.dev",
+    siteName: "Arjun Ganesh",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Arjun Ganesh — Systems Engineer, Applied AI",
+    description: "Systems engineer building trustworthy applied AI under real constraints.",
+  },
+};
+
+const PERSON_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Arjun Ganesh",
+  url: "https://arjunganesh.dev",
+  jobTitle: "Software Engineer",
+  homeLocation: {
+    "@type": "Place",
+    name: "Stockholm, Sweden",
+  },
+  sameAs: ["https://github.com/iarjunganesh", "https://linkedin.com/in/iarjunganesh"],
+  knowsAbout: [
+    "Distributed systems",
+    "Applied artificial intelligence",
+    "Backend engineering",
+    "GPU computing",
+  ],
 };
 
 export const viewport: Viewport = {
@@ -56,6 +84,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ibmPlexMono.variable} ${tiroSanskrit.variable} antialiased`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
+        />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

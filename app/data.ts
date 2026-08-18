@@ -45,6 +45,15 @@ export const RESOURCE_ORDER = [
 
 export type ResourceLabel = (typeof RESOURCE_ORDER)[number];
 
+export type ProjectStatus = "active" | "development" | "deployed" | "archived";
+
+export const PROJECT_STATUS = {
+  active: { label: "Active", tone: "active" },
+  development: { label: "In development", tone: "development" },
+  deployed: { label: "Deployed", tone: "live" },
+  archived: { label: "Archived", tone: "muted" },
+} as const satisfies Record<ProjectStatus, { label: string; tone: string }>;
+
 export type Project = {
   key: string;
   name: string;
@@ -52,9 +61,11 @@ export type Project = {
   tagline: string;
   problem: string;
   solution: string;
-  status: string;
+  status: ProjectStatus;
   flag?: string;
   impact?: string;
+  guarantees?: string[];
+  evidence?: string[];
   context?: string;
   contextHref?: string;
   stack: string[];
@@ -71,10 +82,18 @@ export const projects: Project[] = [
     problem:
       "Manual KYC/AML review doesn't scale, and unaudited AI decisions don't survive a regulator's audit.",
     solution:
-      "Five specialist agents coordinated over A2A on Azure AI Foundry. Every finding is cited via Foundry IQ. Full audit trail. All decisions are explainable, reproducible, and regulatory-proof.",
-    status: "Active",
+      "Five specialist agents coordinated over A2A on Azure AI Foundry. Findings are cited via Foundry IQ, with an audit trail designed for regulatory scrutiny.",
+    status: "active",
     flag: "Winner · Microsoft Agents League 2026 · Hack for Good (1 of 3)",
-    impact: "100% auditable, citation-grounded regulatory lookups replacing manual screenings.",
+    impact: "Citation-grounded regulatory lookups with reproducible audit trails.",
+    guarantees: [
+      "Findings are grounded in cited regulatory sources",
+      "Specialist agents remain separated by responsibility",
+    ],
+    evidence: [
+      "Microsoft Agents League 2026 Hack for Good winner (1 of 3)",
+      "Independent Microsoft editorial write-up",
+    ],
     context: "Microsoft Agents League — AI Skills Fest 2026 · Reasoning Agents track",
     contextHref: "https://info.microsoft.com/Agents-League-Hackathon-Registration.html",
     stack: [
@@ -104,9 +123,15 @@ export const projects: Project[] = [
       "Access review is quarterly work performed on continuously changing permissions. Automating the scan isn't enough — an institutional agent must remember prior human decisions, survive asynchronous retries, prove why it acted, and remain unable to turn suspicious input into a privileged write.",
     solution:
       "Read-only IAM review against the GCP project that runs it, including its own service identities. Deterministic code detects and scores findings; Gemini explains and routes already-minimized risk. Three institutional agents, one durable investigation identity — no raw IAM binding crosses the model or human-notification boundary.",
-    status: "In development",
+    status: "development",
     impact:
-      "Humans receive counts and allowlisted categories, never bindings. 161 tests at 100% statement and branch coverage.",
+      "Human review receives minimized risk categories rather than raw IAM bindings.",
+    guarantees: [
+      "Read-only IAM boundary with no privileged write path",
+      "Raw IAM bindings never cross the model or notification boundary",
+      "Durable investigation identity across asynchronous retries",
+    ],
+    evidence: ["161 tests", "100% statement coverage", "100% branch coverage"],
     context: "All Things Agentic Hackathon 2026 · Fortified Enterprise Fleet track",
     contextHref: "https://allthingsagentichackathon.devpost.com/",
     stack: [
@@ -137,8 +162,13 @@ export const projects: Project[] = [
       "Raw changelogs are noisy, unstructured, and full of false positives. Teams miss critical AI infrastructure updates.",
     solution:
       "High-precision release aggregation. Raw data → dependency checks → bounded, technical summaries. Built with FastAPI + pgvector semantic deduplication.",
-    status: "Live in production",
+    status: "deployed",
     impact: "Converts raw, noisy changelogs into actionable release intelligence.",
+    guarantees: [
+      "Summaries are bounded to technical release content",
+      "Semantic deduplication limits repeated release signals",
+    ],
+    evidence: ["Public web application", "Published API documentation", "Recorded demo"],
     context: "OpenAI Build Week · Devpost",
     contextHref: "https://openai.devpost.com/",
     stack: [
@@ -171,9 +201,11 @@ export const projects: Project[] = [
     problem:
       "Cold-started agents lose execution state. Multi-step workflows restart from zero, wasting compute and losing context.",
     solution:
-      "Distributed checkpoint engine on CockroachDB. Restores 100% of execution state without pipeline restart. Mission-critical runtime guarantees.",
-    status: "Live in production",
-    impact: "Restores full execution state across distributed orchestration.",
+      "Distributed checkpoint engine on CockroachDB. Restores persisted execution state without restarting the pipeline.",
+    status: "deployed",
+    impact: "Resumes distributed orchestration from durable checkpoints.",
+    guarantees: ["Persisted execution checkpoints", "Resumable workflow state"],
+    evidence: ["Public Hugging Face Space", "Recorded demo", "Public source repository"],
     context: "CockroachDB × AWS Hackathon 2026 — Build with Agentic Memory",
     contextHref: "https://cockroachdb-ai.devpost.com/",
     stack: ["Python", "FastAPI", "CockroachDB", "AWS Lambda", "Amazon Bedrock", "MCP"],
@@ -200,17 +232,15 @@ export const projects: Project[] = [
       "Data-centric fintech teams want year-in-review insights. Existing tools are generic, not built for financial workflows.",
     solution:
       "Spotify Wrapped but for banking. Extracts transaction intelligence, generates insights, creates shareable year-end summaries.",
-    status: "Live in production",
+    status: "deployed",
+    guarantees: ["Year-end analysis is scoped to financial transaction workflows"],
+    evidence: ["Public web application", "Published API documentation", "Recorded demo"],
     context: "Backblaze Generative Media · Devpost",
     contextHref: "https://backblaze-generative-media.devpost.com/",
     stack: ["React", "Next.js", "TypeScript", "Framer", "Vercel"],
     links: [
       { label: "Code", href: "https://github.com/iarjunganesh/bankers-wrapped" },
       { label: "Live app", href: "https://bankers-wrapped.arjunganesh.dev" },
-      {
-        label: "API docs",
-        href: "https://bankers-wrapped-api-production.up.railway.app/docs",
-      },
       { label: "Demo video", href: "https://youtu.be/eTw1TCcYFk4" },
       { label: "Devpost", href: "https://devpost.com/software/banker-s-wrapped" },
     ],
@@ -218,103 +248,141 @@ export const projects: Project[] = [
   },
 ];
 
-export const experiments = [
+export type ResearchStatus = "active" | "complete" | "paused";
+
+export type ResearchItem = {
+  key: string;
+  name: string;
+  question: string;
+  method: string;
+  result: string;
+  next: string;
+  status: ResearchStatus;
+  stack: string[];
+  href: string;
+  artifacts?: { label: string; href: string }[];
+};
+
+export const research = [
   {
+    key: "q1729",
     name: "q1729",
-    desc: "Ramanujan optimization via bare-metal GPU. CUDA-Q + cuQuantum + NVIDIA NIM Nemotron",
+    question:
+      "At what problem size does quantum simulation stop being competitive with a hand-written CUDA kernel on the same silicon?",
+    method:
+      "Compare Ramanujan's 1914 pi series in a CUDA C++ kernel with Quantum Amplitude Estimation in CUDA-Q/cuQuantum, validated against exact SymPy ground truth.",
+    result:
+      "On an RTX 5070 Laptop GPU, the classical kernel reached 16 digits in 2.6 ms; simulated QAE reached 5 digits in 0.44 s. The measured run found no crossover on this hardware.",
+    next:
+      "Run the optional H100 axis, then open the hardware-agnostic benchmark format to community submissions.",
+    status: "active",
+    stack: ["CUDA C++", "CUDA-Q", "cuQuantum", "SymPy", "NIM / Nemotron"],
     href: "https://github.com/iarjunganesh/q1729",
+    artifacts: [
+      {
+        label: "Measured run",
+        href: "https://github.com/iarjunganesh/q1729/blob/main/benchmarks/runs/2026-08-05-rtx5070-turbo.json",
+      },
+      {
+        label: "Crossover plot",
+        href: "https://github.com/iarjunganesh/q1729/blob/main/benchmarks/plots/crossover-light.svg",
+      },
+    ],
   },
   {
+    key: "llm-qlab",
     name: "llm-qlab",
-    desc: "LLM quantization benchmarks on consumer GPUs. Speed, VRAM, accuracy trade-offs",
+    question:
+      "How do GGUF quantization and CPU/GPU layer placement change inference throughput and memory use on consumer NVIDIA hardware?",
+    method:
+      "Separate prefill and decode with llama.cpp counters; discard warmups; report repeated-run variance; verify memory clock state; reject unstable or paged runs.",
+    result:
+      "Across three 7B model families, decode throughput fell monotonically as quantized weight size increased. Full Llama-2 offload measured 6.2x CPU-only decode throughput.",
+    next:
+      "Add batch-size and context-length sweeps, quality regression by quantization format, and a datacenter-GPU comparison.",
+    status: "active",
+    stack: ["Python", "llama.cpp", "CUDA", "GGUF"],
     href: "https://github.com/iarjunganesh/llm-qlab",
+    artifacts: [
+      {
+        label: "Measurements",
+        href: "https://github.com/iarjunganesh/llm-qlab/blob/main/results/benchmark_results.csv",
+      },
+    ],
   },
   {
+    key: "pythonic-algorithms-lab",
     name: "pythonic-algorithms-lab",
-    desc: "CPU vs GPU profiling with empirical Big-O analysis. CuPy + Numba CUDA",
+    question:
+      "Where do GPU implementations outperform CPU baselines across common algorithms and input sizes?",
+    method:
+      "Run configurable CPU/GPU benchmark sweeps, export the measurements to CSV, and inspect empirical complexity and speedup in an interactive dashboard.",
+    result:
+      "The published sweep reports a 16.6x radix-sort speedup at n = 100,000, while BFS and reductions remain slower than their CPU baselines at tested sizes.",
+    next:
+      "Extend the documented benchmark protocol to additional algorithms, input shapes, and verified GPU runs.",
+    status: "active",
+    stack: ["Python", "CuPy", "Numba CUDA", "Dash"],
     href: "https://github.com/iarjunganesh/pythonic-algorithms-lab",
   },
+] satisfies ResearchItem[];
+
+export const technicalNotebooks = [
   {
     name: "iq-series",
-    desc: "Hands-on Microsoft IQ notebooks. Foundry IQ, Work IQ, Fabric IQ",
+    desc: "Completed Microsoft IQ learning cookbooks with executed Foundry IQ notebook outputs.",
     href: "https://github.com/iarjunganesh/iq-series",
   },
 ];
 
-export const focusAreas = [
+export const engineeringPrinciples = [
   {
-    name: "Agentic AI & enterprise intelligence",
-    items: [
-      "Multi-agent orchestration",
-      "Agent-to-Agent (A2A) communications",
-      "RAG with hybrid search",
-      "Explainable decision-graph logging",
-      "MCP integrations",
-    ],
+    name: "Deterministic core, probabilistic edge",
+    description:
+      "Use models to explain, classify, summarize, or route. Keep authorization, scoring, and state transitions explicit where risk demands it.",
   },
   {
-    name: "Distributed systems & backend architecture",
-    items: [
-      "High-throughput transactional microservices",
-      "Event-driven event meshes",
-      "NoSQL data storage",
-      "Hybrid cloud (AWS, Azure, OpenShift)",
-    ],
+    name: "Auditability by construction",
+    description:
+      "Treat evidence, citations, and decisions as first-class records rather than trying to reconstruct them from logs later.",
   },
   {
-    name: "AI infrastructure & compute performance",
-    items: [
-      "Bare-metal & GPU acceleration",
-      "NVIDIA CUDA development",
-      "Model serving optimization",
-      "Vector database indexing (pgvector)",
-      "Low-latency profiling",
-    ],
+    name: "Durable state over ephemeral memory",
+    description:
+      "Design agents and workflows to survive retries, cold starts, and asynchronous boundaries without losing investigation identity.",
   },
   {
-    name: "Reliability & platform engineering",
-    items: [
-      "Distributed telemetry pipelines",
-      "Structured logging instrumentation",
-      "OpenTelemetry integration",
-      "Azure Application Insights",
-      "Custom KQL telemetry",
-    ],
+    name: "Minimize model exposure",
+    description:
+      "Send only the information required for a model task, preserving explicit boundaries around sensitive source data.",
+  },
+  {
+    name: "Human authority remains explicit",
+    description:
+      "Automation may propose, route, summarize, or assist; privileged decisions retain clear ownership and review boundaries.",
   },
 ];
 
-export const techStack = [
+export const capabilities = [
   {
-    label: "Languages & frameworks",
-    items: ["Java", "Spring Boot", "Quarkus", "Python", "FastAPI", "TypeScript", "React", "Next.js"],
+    label: "Distributed backends",
+    evidence: "Swedbank anti-financial-crime platforms · Viaplay streaming systems · IBM banking APIs",
   },
   {
-    label: "Agentic AI & LLM",
-    items: [
-      "Azure AI Foundry",
-      "Semantic Kernel",
-      "RAG hybrid search",
-      "A2A",
-      "MCP",
-      "NVIDIA NIM",
-      "Amazon Bedrock",
-    ],
+    label: "Agent orchestration",
+    evidence: "ARGUS · BASTION",
   },
   {
-    label: "Cloud & infrastructure",
-    items: [
-      "Microsoft Azure",
-      "Amazon AWS",
-      "OpenShift",
-      "CockroachDB",
-      "PostgreSQL",
-      "Railway",
-      "Vercel",
-    ],
+    label: "Durable workflow state",
+    evidence: "CONTINUUM · BASTION",
   },
   {
-    label: "AI infra, GPU & observability",
-    items: ["CUDA C++", "CUDA-Q", "cuQuantum", "NVIDIA CUDA", "pgvector", "OpenTelemetry", "KQL"],
+    label: "Retrieval and release intelligence",
+    evidence: "ARGUS · DRIFT",
+  },
+  {
+    label: "GPU compute and benchmarking",
+    evidence: "q1729 · llm-qlab · pythonic-algorithms-lab",
   },
 ];
 
@@ -356,24 +424,14 @@ export const certifications = [
     href: "https://www.credly.com/badges/9bd97539-00ed-40e7-990e-829e8592b1bd",
   },
   {
-    name: "Machine Learning and AI Foundations",
-    issuer: "LinkedIn Learning Community",
-    href: "https://www.linkedin.com/learning/certificates/762902fe70c1d3b8f90eea011889a6d505aaf3aeff11cc72c0fe3f69cb96830a",
+    name: "Kubernetes Administration",
+    issuer: "The Linux Foundation",
+    href: "https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/9e8e7f08-3f88-45a0-b0be-694276f9d2c6-arjun-ganesh-ac140df6-e13a-4ab9-978e-a78345e96415-certificate.pdf",
   },
   {
     name: "IBM Machine Learning Essentials",
     issuer: "IBM",
     href: "https://www.credly.com/badges/fe045d02-8b3e-46b6-9d2b-c331627c6803",
-  },
-  {
-    name: "Python for Data Science",
-    issuer: "IBM",
-    href: "https://www.credly.com/badges/fbef61ad-8c64-4c1a-a556-2da36664da8e",
-  },
-  {
-    name: "Kubernetes Administration",
-    issuer: "The Linux Foundation",
-    href: "https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/9e8e7f08-3f88-45a0-b0be-694276f9d2c6-arjun-ganesh-ac140df6-e13a-4ab9-978e-a78345e96415-certificate.pdf",
   },
 ];
 
@@ -418,7 +476,7 @@ export const NAV = [
   { href: "/work", label: "Work" },
   { href: "/press", label: "Press" },
   { href: "/research", label: "Research" },
-  { href: "/focus", label: "Focus" },
+  { href: "/focus", label: "Principles" },
   { href: "/stack", label: "Stack" },
   { href: "/career", label: "Career" },
   { href: "/certs", label: "Certs" },

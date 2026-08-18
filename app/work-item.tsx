@@ -1,25 +1,15 @@
-"use client";
-
-import { useCallback, useRef } from "react";
-import type { Project } from "./data";
+import { PROJECT_STATUS, RESOURCE_ORDER, type Project } from "./data";
 import DeviceFrame from "./device-frame";
 import Reveal from "./reveal";
 
 export default function WorkItem({ p, n }: { p: Project; n: number }) {
-  const ref = useRef<HTMLElement>(null);
-
-  // Pointer spotlight: write coordinates straight to CSS custom properties so
-  // the gradient follows the cursor without re-rendering React.
-  const onMove = useCallback((e: React.PointerEvent<HTMLElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--spot-x", `${((e.clientX - r.left) / r.width) * 100}%`);
-    el.style.setProperty("--spot-y", `${((e.clientY - r.top) / r.height) * 100}%`);
-  }, []);
+  const status = PROJECT_STATUS[p.status];
+  const orderedLinks = RESOURCE_ORDER.flatMap((label) =>
+    p.links?.filter((link) => link.label === label) ?? [],
+  );
 
   return (
-    <article ref={ref} className="work-item" onPointerMove={onMove}>
+    <article className="work-item">
       <Reveal>
         <div className="work-head">
           <span className="index">{String(n).padStart(2, "0")}</span>
@@ -39,18 +29,47 @@ export default function WorkItem({ p, n }: { p: Project; n: number }) {
           </a>
         </div>
 
-        <p className="lede muted" style={{ marginBottom: "1.75rem", maxWidth: "48ch" }}>
-          {p.tagline}
-        </p>
+        <p className="lede muted work-lede">{p.tagline}</p>
 
-        {p.flag && (
-          <p style={{ marginBottom: "1.75rem" }}>
-            <span className="badge">★ {p.flag}</span>
-          </p>
-        )}
+        <div className="work-meta">
+          <div>
+            <span className="label">Status</span>
+            <p className="project-status" data-tone={status.tone}>
+              <span className="status-dot" aria-hidden="true" />
+              {status.label}
+            </p>
+          </div>
+          {p.flag && <span className="badge">★ {p.flag}</span>}
+        </div>
 
         <div className="work-body">
           <div className="qa">
+            {p.impact && (
+              <div>
+                <span className="label label-signal">Impact</span>
+                <p className="work-impact">{p.impact}</p>
+              </div>
+            )}
+            {p.guarantees && p.guarantees.length > 0 && (
+              <div>
+                <span className="label">Guarantees / constraints</span>
+                <ul className="evidence-list">
+                  {p.guarantees.map((guarantee) => (
+                    <li key={guarantee}>{guarantee}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {p.evidence && p.evidence.length > 0 && (
+              <div>
+                <span className="label">Evidence</span>
+                <ul className="evidence-list evidence-list-signal">
+                  {p.evidence.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div>
               <span className="label">Problem</span>
               <p>{p.problem}</p>
@@ -59,12 +78,6 @@ export default function WorkItem({ p, n }: { p: Project; n: number }) {
               <span className="label">Solution</span>
               <p>{p.solution}</p>
             </div>
-            {p.impact && (
-              <div>
-                <span className="label label-signal">Impact</span>
-                <p>{p.impact}</p>
-              </div>
-            )}
             {p.context && (
               <div>
                 <span className="label">Context</span>
@@ -82,23 +95,7 @@ export default function WorkItem({ p, n }: { p: Project; n: number }) {
           </div>
 
           <aside>
-            <div>
-              <span className="label">Status</span>
-              <p
-                style={{
-                  marginTop: "0.5rem",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  fontSize: "var(--t-small)",
-                }}
-              >
-                <span className="status-dot" aria-hidden="true" />
-                {p.status}
-              </p>
-            </div>
-
-            <div style={{ marginTop: "1.75rem" }}>
+            <div className="work-aside-block">
               <span className="label">Stack</span>
               <div className="chips">
                 {p.stack.map((t) => (
@@ -109,11 +106,11 @@ export default function WorkItem({ p, n }: { p: Project; n: number }) {
               </div>
             </div>
 
-            {p.links && p.links.length > 0 && (
-              <div style={{ marginTop: "1.75rem" }}>
+            {orderedLinks.length > 0 && (
+              <div className="work-aside-block">
                 <span className="label">Resources</span>
                 <div className="res-list">
-                  {p.links.map((l) => (
+                  {orderedLinks.map((l) => (
                     <a
                       key={l.label}
                       href={l.href}
@@ -134,7 +131,7 @@ export default function WorkItem({ p, n }: { p: Project; n: number }) {
         </div>
 
         {p.preview && (
-          <div style={{ marginTop: "2.5rem" }}>
+          <div className="work-preview">
             <DeviceFrame
               url={p.preview.url}
               embedUrl={p.preview.embedUrl}

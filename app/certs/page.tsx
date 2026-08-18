@@ -4,6 +4,7 @@ import { certifications } from "../data";
 
 export const metadata: Metadata = {
   title: "Credentials",
+  alternates: { canonical: "/certs" },
   description:
     "NVIDIA Certified Professional: Agentic AI, Linux Foundation Kubernetes Administration, IBM Machine Learning Essentials and more.",
 };

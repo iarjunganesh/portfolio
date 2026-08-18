@@ -5,8 +5,9 @@ import { projects } from "../data";
 
 export const metadata: Metadata = {
   title: "Work",
+  alternates: { canonical: "/work" },
   description:
-    "ARGUS, Bastion, DRIFT, Continuum and Banker's Wrapped — five systems in production or active development.",
+    "ARGUS, Bastion, DRIFT, Continuum and Banker's Wrapped — five deployed systems or active investigations.",
 };
 
 export default function WorkPage() {
@@ -14,7 +15,7 @@ export default function WorkPage() {
     <SectionPage
       n="02"
       title="Selected systems"
-      lede="Five systems in production or active development. Problem, approach, and what each one actually guarantees."
+      lede="Five deployed systems or active investigations. Problem, approach, and the evidence behind each one."
     >
       {projects.map((p, i) => (
         <WorkItem key={p.key} p={p} n={i + 1} />
