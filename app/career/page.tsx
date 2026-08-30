@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
+import ExperienceYears from "../experience-years";
 import SectionPage from "../section-page";
 import { career } from "../data";
 
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   title: "Career",
   alternates: { canonical: "/career" },
   description:
-    "Swedbank, Viaplay Group, Expleo Technology Nordic and IBM — 13+ years across regulated banking, media streaming and anti-financial crime.",
+    "Swedbank, Viaplay Group, Expleo Technology Nordic and IBM — engineering production systems since 2012 across regulated banking, streaming, and anti-financial crime.",
 };
 
 const CAREER_LOCATIONS = [
@@ -26,15 +27,43 @@ function locationStyle(longitude: number, latitude: number) {
 
 export default function CareerPage() {
   return (
-    <SectionPage n="07" title="Career">
-      <figure className="career-map" aria-label="Career locations across India, Australia, and Sweden">
+    <SectionPage
+      n="07"
+      title="Career"
+      lede="Production engineering across regulated banking, streaming, and distributed platforms — with the roles first and the geography in support."
+    >
+      <section className="career-summary" aria-label="Career summary">
+        <div>
+          <strong><ExperienceYears /></strong>
+          <span>Years shipping since 30 August 2012</span>
+        </div>
+        <p>Swedbank · Viaplay Group · Expleo Technology Nordic · IBM</p>
+      </section>
+
+      <section className="career-timeline" aria-labelledby="career-timeline-title">
+        <span className="label label-signal">Experience</span>
+        <h2 className="row-title" id="career-timeline-title">Roles and outcomes</h2>
+        <div>
+          {career.map((role) => (
+            <article key={`${role.company}-${role.period}`} className="career-row">
+              <span className="label">{role.period}</span>
+              <div>
+                <h3>{role.title}</h3>
+                <p className="career-company">{role.company} <span>· {role.location}</span></p>
+                <p className="muted">{role.note}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <figure className="career-map" aria-labelledby="career-map-caption">
         <div className="career-map-plane">
           {CAREER_LOCATIONS.map((location) => (
             <div
               key={location.key}
               className={`career-marker career-marker-${location.key}`}
               style={locationStyle(location.longitude, location.latitude)}
-              aria-label={`${location.city}, ${location.country}${location.current ? " — current location" : ""}`}
             >
               <span className="career-marker-point" aria-hidden="true" />
               <span className="career-marker-label" aria-hidden="true">
@@ -44,27 +73,10 @@ export default function CareerPage() {
             </div>
           ))}
         </div>
+        <figcaption id="career-map-caption">
+          Career locations across Pune, Sydney, Gothenburg, and Stockholm.
+        </figcaption>
       </figure>
-
-      <div>
-        {career.map((r) => (
-          <div key={`${r.company}-${r.period}`} className="row">
-            <span className="label" style={{ paddingTop: "0.35rem" }}>
-              {r.period}
-            </span>
-            <div>
-              <h2 className="row-title">{r.title}</h2>
-              <p style={{ marginTop: "0.35rem", fontSize: "var(--t-small)" }}>
-                <span style={{ color: "var(--signal)" }}>{r.company}</span>
-                <span className="muted"> · {r.location}</span>
-              </p>
-              <p className="muted" style={{ marginTop: "0.5rem", fontSize: "var(--t-small)" }}>
-                {r.note}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
     </SectionPage>
   );
 }

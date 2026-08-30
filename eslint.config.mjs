@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Scratch space: throwaway worktrees and comparison builds land here, and
+    // their emitted chunks otherwise bury the app's own findings.
+    ".tmp/**",
   ]),
 ]);
 

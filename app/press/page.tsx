@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     "ARGUS won Hack for Good at the Microsoft Agents League 2026 and was featured on the Microsoft Tech Community blog.",
 };
 
+const RECOGNITION_ALT =
+  "Lee Stott of Microsoft congratulates Arjun Ganesh for ARGUS and its measurable social impact";
+
 export default function PressPage() {
   return (
     <SectionPage n="03" title="Press & recognition">
@@ -37,22 +40,27 @@ export default function PressPage() {
           </a>
         </div>
 
+        {/* A <source media> query can only see the OS setting, never the theme
+            toggle, so the light and dark plates are swapped in CSS instead.
+            Each <picture> still picks its own mobile crop. */}
         <div className="press-shot">
-          <picture>
-            <source
-              media="(max-width: 600px) and (prefers-color-scheme: dark)"
-              srcSet={recognitionQuoteDarkMobile.src}
-            />
-            <source
-              media="(max-width: 600px)"
-              srcSet={recognitionQuoteLightMobile.src}
-            />
-            <source media="(prefers-color-scheme: dark)" srcSet={recognitionQuoteDark.src} />
+          <picture className="theme-light-only">
+            <source media="(max-width: 600px)" srcSet={recognitionQuoteLightMobile.src} />
             <img
               src={recognitionQuoteLight.src}
-              alt="Lee Stott of Microsoft congratulates Arjun Ganesh for ARGUS and its measurable social impact"
+              alt={RECOGNITION_ALT}
               width={recognitionQuoteLight.width}
               height={recognitionQuoteLight.height}
+              style={{ display: "block", width: "100%", height: "auto" }}
+            />
+          </picture>
+          <picture className="theme-dark-only">
+            <source media="(max-width: 600px)" srcSet={recognitionQuoteDarkMobile.src} />
+            <img
+              src={recognitionQuoteDark.src}
+              alt={RECOGNITION_ALT}
+              width={recognitionQuoteDark.width}
+              height={recognitionQuoteDark.height}
               style={{ display: "block", width: "100%", height: "auto" }}
             />
           </picture>

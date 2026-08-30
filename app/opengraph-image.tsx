@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Arjun Ganesh — systems engineer building trustworthy applied AI";
+export const alt = "Arjun Ganesh — auditable AI and distributed systems";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -25,13 +25,18 @@ export default function OpenGraphImage() {
         <span style={{ color: "#6a6558" }}>STOCKHOLM, SE</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ fontSize: 104, fontWeight: 700, lineHeight: 0.92 }}>ARJUN GANESH</div>
+        <div
+          style={{ display: "flex", flexDirection: "column", fontSize: 88, fontWeight: 700, lineHeight: 0.92 }}
+        >
+          <span>AUDITABLE AI.</span>
+          <span>DISTRIBUTED SYSTEMS.</span>
+        </div>
         <div style={{ marginTop: 30, fontSize: 34, color: "#c2410c" }}>
-          Distributed systems · Applied AI
+          ARJUN GANESH · SYSTEMS ENGINEER
         </div>
       </div>
       <div style={{ display: "flex", fontSize: 22, color: "#6a6558" }}>
-        Systems built, investigated, and validated.
+        Engineering production systems since 2012 · Stockholm, Sweden
       </div>
     </div>,
     size,

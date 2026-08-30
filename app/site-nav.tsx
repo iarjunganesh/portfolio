@@ -2,18 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
-import { NAV } from "./data";
+import { CONTACT, PRIMARY_NAV } from "./site-config";
+import ThemeToggle from "./theme-toggle";
 
 export default function SiteNav() {
   const pathname = usePathname();
-  const navRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    navRef.current
-      ?.querySelector('[data-active="true"]')
-      ?.scrollIntoView({ behavior: "instant", block: "nearest", inline: "center" });
-  }, [pathname]);
 
   return (
     // Anchored during view transitions (see globals.css) so only the content
@@ -25,21 +18,32 @@ export default function SiteNav() {
           <span className="mark-role">Governed AI · Distributed systems</span>
         </Link>
 
-        <nav ref={navRef} className="masthead-nav" aria-label="Primary">
-          {NAV.map((l) => {
-            const on = pathname === l.href;
+        <nav className="masthead-nav" aria-label="Primary">
+          {PRIMARY_NAV.map((l) => {
+            const exact = pathname === l.href;
+            // /work stays visually lit on /work/argus, but aria-current="page"
+            // would then name an ancestor as the current page. Only the exact
+            // match gets it.
+            const within = exact || pathname.startsWith(`${l.href}/`);
             return (
               <Link
                 key={l.href}
                 href={l.href}
-                data-active={on}
-                aria-current={on ? "page" : undefined}
+                data-active={within}
+                aria-current={exact ? "page" : undefined}
               >
                 {l.label}
               </Link>
             );
           })}
         </nav>
+
+        <div className="masthead-actions">
+          <ThemeToggle />
+          <a href={CONTACT.cv} download className="masthead-cv">
+            CV <span aria-hidden="true">↓</span>
+          </a>
+        </div>
       </div>
     </header>
   );
