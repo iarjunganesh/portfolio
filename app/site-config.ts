@@ -3,8 +3,8 @@ export const CONTACT = {
   github: "https://github.com/iarjunganesh",
   linkedin: "https://linkedin.com/in/iarjunganesh",
   discord: "https://discord.com/users/1468742414851248301",
-  cv: "/Arjun-Ganesh-CV.pdf",
-  cvDocx: "/Arjun-Ganesh-CV.docx",
+  cv: "/AG_CV.pdf",
+  cvDocx: "/AG_CV.docx",
 } as const;
 
 /**
