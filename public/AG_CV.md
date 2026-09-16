@@ -1,19 +1,19 @@
 # Arjun Ganesh
 
-Stockholm, Sweden | +46709668310 | [iarjunganesh@gmail.com](mailto:iarjunganesh@gmail.com) | [arjunganesh.dev](https://arjunganesh.dev) | [github.com/iarjunganesh](https://github.com/iarjunganesh) | [linkedin.com/in/iarjunganesh](https://linkedin.com/in/iarjunganesh)
+Stockholm, Sweden | +46-709668310 | [iarjunganesh@gmail.com](mailto:iarjunganesh@gmail.com) | [arjunganesh.dev](https://arjunganesh.dev) | [github.com/iarjunganesh](https://github.com/iarjunganesh) | [linkedin.com/in/iarjunganesh](https://linkedin.com/in/iarjunganesh)
 
-## Senior Software and AI Engineer | Applied AI, Distributed Systems and Cloud Platforms
+## Senior Software & AI Engineer | Applied AI, Distributed Systems, Cloud | NVIDIA NCP-AAI
 
 ### Summary
 
-Senior software and AI engineer with 14+ years delivering production systems across regulated banking, media and cloud platforms. Designs and builds systems from discovery and architecture through implementation, deployment and operational support. Current work includes KIRA, a production AI application used daily by Economic Crime Prevention analysts, alongside internal developer tooling and cross-team enablement. Hands-on across Python, Java, TypeScript, APIs, distributed systems, Kubernetes, Azure, AWS and Google Cloud, with applied depth in retrieval, agentic orchestration, evaluation and responsible AI. Won Hack for Good, one of three winners, at the Microsoft Agents League at AI Skills Fest 2026 with ARGUS, and authored a Microsoft Tech Community guest article explaining its architecture.
+Senior software and AI engineer with 14+ years delivering production systems across regulated banking, media and cloud platforms. Designs and builds systems from discovery and architecture through implementation, deployment and operational support. Current work includes KIRA Copilot, a production AI application used daily by Economic Crime Prevention analysts, alongside a Java/Spring Boot integration platform, internal developer tooling and cross-team enablement. Hands-on across Python, Java, TypeScript, APIs, distributed systems, Kubernetes, Azure, AWS and Google Cloud, with applied depth in retrieval, agentic orchestration, evaluation and responsible AI. Won Hack for Good, one of three winners, at the Microsoft Agents League - AI Skills Fest 2026 with ARGUS, and authored a Microsoft Tech Community guest article explaining its architecture.
 
 ### Skills
 
 - **Solution architecture and technical leadership:** Technical discovery, requirements translation, architecture design, rapid prototyping, stakeholder alignment, mentoring and cross-team enablement
-- **Software and distributed systems:** Python, FastAPI, Java, Quarkus, TypeScript, React, REST APIs, microservices, asynchronous workflows, event-driven processing and system integration
+- **Software and distributed systems:** Python, FastAPI, Java, Spring Boot, Quarkus, TypeScript, React, REST APIs, OAuth 2.0/OIDC, JWT, microservices, asynchronous workflows, event-driven processing and system integration
 - **Applied AI and retrieval:** RAG, hybrid and vector search, embeddings, LLM orchestration, multi-agent systems, A2A, MCP, evaluation and human review
-- **Cloud and platform engineering:** Azure, AWS, Google Cloud, Kubernetes, Docker, OpenShift, reusable libraries and deployment automation
+- **Cloud and platform engineering:** Azure, AWS, Google Cloud, Kubernetes, Docker, Helm, OpenShift, reusable libraries and deployment automation
 - **Engineering productivity and operations:** GitHub Actions, CI/CD, observability, structured telemetry, automated testing, performance optimisation and production support
 - **Responsible AI and regulated delivery:** Deterministic controls, citation verification, data minimisation, security, privacy, auditability and compliance
 
@@ -21,11 +21,12 @@ Senior software and AI engineer with 14+ years delivering production systems acr
 
 **Software Engineer - Swedbank, Stockholm** | 06/2025 - Present
 
-- Architected and built KIRA, a production AI application used daily by Economic Crime Prevention analysts, translating a regulated investigation workflow into ingestion, retrieval, orchestration and an analyst-facing experience.
-- Built Python APIs and LLM workflows combining search with deterministic compliance logic; added GDPR-aware evidence trails so analysts can inspect and review generated findings.
-- Worked across business stakeholders and engineering teams to clarify operational needs, resolve technical constraints and shape explainable AI capabilities for production use.
-- Built internal developer tools, delivered enablement sessions for engineers across teams and provided ongoing guidance on technical questions and adoption.
-- Consolidated distributed services into reusable libraries and standardised authentication (OAuth 2.0/OIDC, JWT), observability and deployment patterns; migrated pipelines to GitHub Actions and sustained 95%+ automated test coverage.
+- Architected and built KIRA Copilot, a production AI application used daily by Economic Crime Prevention analysts, translating a regulated investigation workflow into ingestion, retrieval, orchestration and an analyst-facing experience.
+- Built Python APIs and LLM workflows combining search with deterministic compliance logic, with GDPR-aware evidence trails analysts can inspect and review.
+- Designed and built a Java/Spring Boot API gateway giving enterprise applications one integration layer, with OpenAPI contracts and reusable libraries for data transformation, environment routing and OAuth 2.0 machine-to-machine authentication.
+- Implemented certificate-based access control, request validation and correlated logging, and Kubernetes/Helm deployment profiles with health probes, metrics and dashboards.
+- Verified 635 passing tests at 98.10% line and 95.64% branch coverage with JaCoCo across the gateway and four supporting libraries, excluding generated API contract models.
+- Documented current and target architecture and migration trade-offs to guide incremental modernisation; built internal developer tooling and ran enablement sessions for engineers across teams.
 
 **Senior Java Developer - Viaplay Group, Stockholm** | 09/2021 - 06/2025
 
@@ -43,33 +44,39 @@ Progressed from Associate System Engineer across banking and digital platform pr
 
 - Built backend applications and REST APIs for regulated banking programs across distributed teams, covering profile management, validation, enrichment and identity verification integrations.
 - Delivered across privacy, AML, customer establishment, customer service and online lending in complex enterprise stakeholder environments.
-- Contributed through architecture discussions, code reviews, mentoring, engineering standards and technical documentation.
+- Led architecture and code reviews, mentoring and engineering standards across distributed delivery teams.
 - Improved response times by approximately 25% through indexing, query tuning and caching; modernised delivery pipelines with Jenkins, Bamboo and Artifactory.
 
 ### Projects
 
-**ARGUS - Agentic KYC Risk Platform** | [github.com/iarjunganesh/argus](https://github.com/iarjunganesh/argus) | Hack for Good winner, 1 of 3, Microsoft Agents League at AI Skills Fest 2026
+**ARGUS - Agentic KYC Risk Platform** | [github.com/iarjunganesh/argus](https://github.com/iarjunganesh/argus)
 
-- Built a six-service multi-agent KYC system in Python: five specialist agents covering identity, screening, corporate, transaction and compliance fan out in parallel over a versioned agent-to-agent envelope, with compliance fan-in and a task-level audit trace on every report.
-- Grounded regulatory and typology retrieval in Azure AI Search indexes defined as code; Azure OpenAI for decision explanations over Cosmos DB entity and transaction data, with deterministic weighted risk scoring and fixed tier thresholds.
+Hack for Good winner, 1 of 3, Microsoft Agents League - AI Skills Fest 2026
+
+- Six-service multi-agent KYC system in Python: five specialist agents fan out in parallel over a versioned A2A envelope, with compliance fan-in and a task ID traced through every report.
+- Grounded retrieval in Azure AI Search indexes defined as code, with Azure OpenAI explanations over Cosmos DB, deterministic weighted scoring and fixed tier thresholds.
 
 **BASTION - Governed Agentic Access Review** | [github.com/iarjunganesh/bastion](https://github.com/iarjunganesh/bastion) | All Things Agentic Hackathon 2026
 
-- Built a read-only IAM review system on Google Cloud with three Google ADK agents, registry-backed admission, Model Armor screening and deterministic risk detection ahead of the model; no raw IAM binding reaches the model or a notification. 321 tests at 100% statement and branch coverage.
+- Read-only IAM review system on Google Cloud with three Google ADK agents, screening and scoring every binding deterministically before the model sees it. 321 tests at 100% statement and branch coverage.
 
-**Continuum - Durable Agentic Memory** | [github.com/iarjunganesh/continuum](https://github.com/iarjunganesh/continuum) | CockroachDB x AWS Hackathon 2026
+**Continuum - Durable Agentic Memory** | [github.com/iarjunganesh/continuum](https://github.com/iarjunganesh/continuum) | CockroachDB × AWS Hackathon - Build with Agentic Memory, 2026
 
-- Built an incident-response agent on AWS Lambda and CockroachDB combining a structured service filter with semantic ranking in one C-SPANN vector query over Amazon Bedrock Titan embeddings; raised retrieval precision@1 from 55% to 98% by replacing placeholder vectors, and durable checkpoints resumed 50 of 50 interrupted steps, 10 of 10 real SIGKILLs and 15 of 15 AWS-terminated invocations, with no duplicated actions.
+- Incident-response agent on AWS Lambda and CockroachDB fusing structured filtering with semantic ranking in a single C-SPANN vector query over Bedrock Titan embeddings; durable checkpoints resumed 10 of 10 SIGKILLs and 15 of 15 AWS-terminated invocations without duplicating actions.
 
 **DRIFT - Grounded Release Intelligence** | [github.com/iarjunganesh/drift](https://github.com/iarjunganesh/drift) | OpenAI Build Week 2026
 
-- Built a six-stage FastAPI and Next.js/TypeScript pipeline turning noisy release feeds into cited briefings; pinned every claim to a verbatim source excerpt with character offsets and a SHA-256 hash, retrieving over OpenAI embeddings and PostgreSQL/pgvector with a human gate before publication. 189 tests at 100% backend coverage.
+- Six-stage FastAPI and Next.js pipeline turning noisy release feeds into cited briefings, pinning every claim to a verbatim excerpt with character offsets and a SHA-256 hash, with a human gate before publication. 189 tests at 100% backend coverage.
 
 ### Publications
 
 **[ARGUS: Compliance Infrastructure That Believes Financial Access Is a Human Right](https://techcommunity.microsoft.com/blog/educatordeveloperblog/argus-compliance-infrastructure-that-believes-financial-access-is-a-human-right/4539074)** | Microsoft Tech Community, July 2026
 
-- Authored a guest article on ARGUS's problem framing, multi-agent architecture, grounding strategy and auditability.
+- Authored a guest article explaining ARGUS's problem framing, multi-agent architecture, grounding strategy, auditability and human-centred roadmap.
+
+**[What 100% Test Coverage Missed: State Across Google ADK A2A Boundaries](https://dev.to/arjunganesh/what-100-test-coverage-missed-state-across-google-adk-a2a-boundaries-29i1)** | dev.to, August 2026
+
+- Analysed why 100% local test coverage still missed session state crossing distributed A2A service boundaries in production.
 
 ### Certifications
 

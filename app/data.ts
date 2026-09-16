@@ -664,7 +664,7 @@ export const career = [
     title: "Software Engineer",
     company: "Swedbank",
     location: "Stockholm, Sweden",
-    note: "Anti-financial crime · AML platforms · 95%+ test coverage across unified multi-module architecture",
+    note: "Anti-financial crime · AML platforms · Java/Spring Boot integration gateway and reusable libraries",
   },
   {
     period: "2021 – 2025",
@@ -682,7 +682,7 @@ export const career = [
   },
   {
     period: "2012 – 2021",
-    title: "Senior Software Engineer",
+    title: "Technical Lead",
     company: "IBM",
     location: "Sydney & Pune",
     note: "Regulated banking APIs for Westpac · ~25% response-time gains · Jenkins/Bamboo modernization",
