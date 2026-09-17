@@ -251,30 +251,54 @@ img {
 .theme-toggle {
   display: flex;
   align-items: center;
-  border: 1px solid var(--rule);
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
   background: var(--bg-2);
 }
-.theme-toggle button {
+.theme-option {
+  position: relative;
+  cursor: pointer;
+}
+.theme-option input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.theme-option-content {
   display: grid;
   place-items: center;
-  width: 2rem;
-  min-height: 1.9rem;
-  padding: 0;
-  border: 0;
-  background: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 2px solid transparent;
+  border-radius: 50%;
   color: var(--muted);
-  cursor: pointer;
   transition: color 0.25s var(--ease), background 0.25s var(--ease);
 }
-.theme-toggle button + button {
-  border-left: 1px solid var(--rule);
-}
-.theme-toggle button:hover {
+.theme-option:hover .theme-option-content {
   color: var(--ink);
 }
-.theme-toggle button[data-active="true"] {
+.theme-option input:checked + .theme-option-content {
+  border-color: var(--signal);
   background: var(--signal-soft);
   color: var(--signal);
+}
+.theme-option input:focus-visible + .theme-option-content {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+@media (forced-colors: active) {
+  .theme-option input:checked + .theme-option-content {
+    border-color: Highlight;
+    color: Highlight;
+  }
 }
 
 .masthead-nav {

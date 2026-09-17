@@ -1,12 +1,14 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useId, useSyncExternalStore } from "react";
 import { THEMES, THEME_STORAGE_KEY, isTheme, type Theme } from "./theme";
 
 const listeners = new Set<() => void>();
-let current: Theme = "system";
+type Preference = Theme | "system";
+let preference: Preference = "system";
+let current: Theme | null = null;
 
-function read(): Theme {
+function read(): Preference {
   try {
     const stored = localStorage.getItem(THEME_STORAGE_KEY);
     return isTheme(stored) ? stored : "system";
@@ -16,50 +18,58 @@ function read(): Theme {
 }
 
 function subscribe(onChange: () => void) {
-  if (listeners.size === 0) current = read();
+  if (listeners.size === 0) {
+    preference = read();
+    apply(preference);
+  }
   listeners.add(onChange);
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+  const onSystemChange = () => {
+    if (preference === "system") {
+      apply(preference);
+      listeners.forEach((l) => l());
+    }
+  };
   // Another tab changing the preference should move this one too.
   const onStorage = (event: StorageEvent) => {
-    if (event.key === THEME_STORAGE_KEY) {
-      current = read();
-      apply(current);
+    if (event.key === THEME_STORAGE_KEY || event.key === null) {
+      preference = read();
+      apply(preference);
       listeners.forEach((l) => l());
     }
   };
   window.addEventListener("storage", onStorage);
+  media.addEventListener("change", onSystemChange);
   return () => {
     listeners.delete(onChange);
     window.removeEventListener("storage", onStorage);
+    media.removeEventListener("change", onSystemChange);
   };
 }
 
-function apply(theme: Theme) {
+function apply(theme: Preference) {
   const root = document.documentElement;
   // Unset means "follow the OS", which is what `color-scheme: light dark` on
   // :root already does — so system is an absence, not a third palette.
   if (theme === "system") delete root.dataset.theme;
   else root.dataset.theme = theme;
+  current = theme === "system"
+    ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+    : theme;
 }
 
 // The server has no preference to report, and neither does the first client
 // render — reading storage during render would disagree with the HTML React is
-// hydrating. Both snapshots start at "system"; subscribe() reads the real value.
+// hydrating. Neither radio is checked until subscribe() resolves the real theme.
 const getSnapshot = () => current;
-const getServerSnapshot = (): Theme => "system";
+const getServerSnapshot = () => null;
 
 const LABELS: Record<Theme, string> = {
-  system: "Match system",
   light: "Light",
   dark: "Dark",
 };
 
 const ICONS: Record<Theme, React.ReactNode> = {
-  system: (
-    <>
-      <rect x="2.5" y="3.5" width="13" height="9" rx="1.5" />
-      <path d="M6 15.5h6" />
-    </>
-  ),
   light: (
     <>
       <circle cx="9" cy="9" r="3.25" />
@@ -70,10 +80,11 @@ const ICONS: Record<Theme, React.ReactNode> = {
 };
 
 export default function ThemeToggle() {
+  const name = useId();
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const select = useCallback((next: Theme) => {
-    current = next;
+    preference = next;
     apply(next);
     try {
       localStorage.setItem(THEME_STORAGE_KEY, next);
@@ -84,33 +95,35 @@ export default function ThemeToggle() {
   }, []);
 
   return (
-    <div className="theme-toggle" role="radiogroup" aria-label="Colour theme">
+    <fieldset className="theme-toggle">
+      <legend className="sr-only">Colour theme</legend>
       {THEMES.map((option) => (
-        <button
-          key={option}
-          type="button"
-          role="radio"
-          aria-checked={theme === option}
-          aria-label={LABELS[option]}
-          title={LABELS[option]}
-          data-active={theme === option}
-          onClick={() => select(option)}
-        >
-          <svg
-            viewBox="0 0 18 18"
-            width="15"
-            height="15"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            {ICONS[option]}
-          </svg>
-        </button>
+        <label className="theme-option" key={option} title={`${LABELS[option]} mode`}>
+          <input
+            type="radio"
+            name={name}
+            value={option}
+            checked={theme === option}
+            onChange={() => select(option)}
+          />
+          <span className="theme-option-content">
+            <span className="sr-only">{LABELS[option]}</span>
+            <svg
+              viewBox="0 0 18 18"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              {ICONS[option]}
+            </svg>
+          </span>
+        </label>
       ))}
-    </div>
+    </fieldset>
   );
 }
