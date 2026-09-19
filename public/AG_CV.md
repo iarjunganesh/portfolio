@@ -6,7 +6,7 @@ Stockholm, Sweden | +46-709668310 | [iarjunganesh@gmail.com](mailto:iarjunganesh
 
 ### Summary
 
-Senior software and AI engineer with 14+ years delivering production systems across regulated banking, media and cloud platforms. Designs and builds systems from discovery and architecture through implementation, deployment and operational support. Current work includes KIRA Copilot, a production AI application used daily by Economic Crime Prevention analysts, alongside a Java/Spring Boot integration platform, internal developer tooling and cross-team enablement. Hands-on across Python, Java, TypeScript, APIs, distributed systems, Kubernetes, Azure, AWS and Google Cloud, with applied depth in retrieval, agentic orchestration, evaluation and responsible AI. Won Hack for Good, one of three winners, at the Microsoft Agents League - AI Skills Fest 2026 with ARGUS, and authored a Microsoft Tech Community guest article explaining its architecture.
+Senior software and AI engineer with 14+ years delivering production systems across regulated banking, media and cloud platforms. Designs and builds systems from discovery and architecture through implementation, deployment and operational support. Current work includes a production AI application used daily by financial-crime analysts, alongside a Java/Spring Boot integration platform, internal developer tooling and cross-team enablement. Hands-on across Python, Java, TypeScript, APIs, distributed systems, Kubernetes, Azure, AWS and Google Cloud, with applied depth in retrieval, agentic orchestration, evaluation and responsible AI. Won Hack for Good, one of three winners, at the Microsoft Agents League - AI Skills Fest 2026 with ARGUS, and authored a Microsoft Tech Community guest article explaining its architecture.
 
 ### Skills
 
@@ -21,7 +21,7 @@ Senior software and AI engineer with 14+ years delivering production systems acr
 
 **Software Engineer - Swedbank, Stockholm** | 06/2025 - Present
 
-- Architected and built KIRA Copilot, a production AI application used daily by Economic Crime Prevention analysts, translating a regulated investigation workflow into ingestion, retrieval, orchestration and an analyst-facing experience.
+- Architected and built a production AI application used daily by financial-crime analysts, translating a regulated investigation workflow into ingestion, retrieval, orchestration and an analyst-facing experience.
 - Built Python APIs and LLM workflows combining search with deterministic compliance logic, with GDPR-aware evidence trails analysts can inspect and review.
 - Designed and built a Java/Spring Boot API gateway giving enterprise applications one integration layer, with OpenAPI contracts and reusable libraries for data transformation, environment routing and OAuth 2.0 machine-to-machine authentication.
 - Implemented certificate-based access control, request validation and correlated logging, and Kubernetes/Helm deployment profiles with health probes, metrics and dashboards.

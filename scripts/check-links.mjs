@@ -4,13 +4,16 @@ import { fileURLToPath } from "node:url";
 
 const SOURCE_DIR = fileURLToPath(new URL("../app/", import.meta.url));
 const DEFINITIVE_FAILURES = new Set([404, 410]);
+// Skip only the site itself (not yet deployed at check time). Subdomains like
+// bastion.arjunganesh.dev are separately hosted demos and must be checked.
+const SELF_SITE = /^https:\/\/(?:www\.)?arjunganesh\.dev(?:[\/?#]|$)/;
 const urls = new Set();
 
 for await (const relativePath of glob("**/*.{ts,tsx}", { cwd: SOURCE_DIR })) {
   const source = await readFile(join(SOURCE_DIR, relativePath), "utf8");
   for (const match of source.matchAll(/https:\/\/[^\s"'`<>)}]+/g)) {
     const url = match[0].replace(/[.,;:]$/, "");
-    if (!url.includes("arjunganesh.dev")) urls.add(url);
+    if (!SELF_SITE.test(url)) urls.add(url);
   }
 }
 

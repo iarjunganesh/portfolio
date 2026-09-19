@@ -3,6 +3,10 @@ name: CI
 on:
   push:
   pull_request:
+  # Weekly canary: the demo links on this site are load-bearing proof and can
+  # die between pushes. Hugging Face Spaces sleep; Vercel projects get paused.
+  schedule:
+    - cron: "0 6 * * 1"
 
 permissions:
   contents: read
